@@ -1,6 +1,6 @@
 # Load table from my Github
-add <- 'https://raw.githubusercontent.com/bolus123/Data
-/master/data1.csv'
+add <- 'https://raw.githubusercontent.com/
+bolus123/R-handout/master/Descriptive%20statistics/example.csv'
 data <- as.matrix(read.csv(file = add))
 data
 

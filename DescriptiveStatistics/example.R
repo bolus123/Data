@@ -1,31 +1,107 @@
-# Load table from my Github
-add <- 'https://raw.githubusercontent.com/
+######################################################################################
+					#Loading data
+######################################################################################
+# 1. Loading table from a CSV file
+# Locate the CSV file
+addr <- 'https://raw.githubusercontent.com/
 bolus123/R-handout/master/DescriptiveStatistics/example.csv'
-data <- as.matrix(read.csv(file = add))
+# The link can be replaced by your local address 
+# such as 'C:/yourfolder/example.csv'
+
+# Load the data in R and transfer it into a matrix
+data <- as.matrix(read.csv(file = addr))
+
+# Show the data
 data
 
+# 2. Directly input data
+data <- matrix(c(
+	74.03	,	74.002	,	74.019	,	73.992	,	74.008	,
+	73.995	,	73.992	,	74.001	,	74.011	,	74.004	,
+	73.988	,	74.024	,	74.021	,	74.005	,	74.002	,
+	74.002	,	73.996	,	73.993	,	74.015	,	74.009	,
+	73.992	,	74.007	,	74.015	,	73.989	,	74.014	,
+	74.009	,	73.994	,	73.997	,	73.985	,	73.993	,
+	73.995	,	74.006	,	73.994	,	74	,	74.005	,
+	73.985	,	74.003	,	73.993	,	74.015	,	73.988	,
+	74.008	,	73.995	,	74.009	,	74.005	,	74.004	,
+	73.998	,	74	,	73.99	,	74.007	,	73.995	,
+	73.994	,	73.998	,	73.994	,	73.995	,	73.99	,
+	74.004	,	74	,	74.007	,	74	,	73.996	,
+	73.983	,	74.002	,	73.998	,	73.997	,	74.012	,
+	74.006	,	73.967	,	73.994	,	74	,	73.984	,
+	74.012	,	74.014	,	73.998	,	73.999	,	74.007	,
+	74	,	73.984	,	74.005	,	73.998	,	73.996	,
+	73.994	,	74.012	,	73.986	,	74.005	,	74.007	,
+	74.006	,	74.01	,	74.018	,	74.003	,	74	,
+	73.984	,	74.002	,	74.003	,	74.005	,	73.997	,
+	74	,	74.01	,	74.013	,	74.02	,	74.003	,
+	73.982	,	74.001	,	74.015	,	74.005	,	73.996	,
+	74.004	,	73.999	,	73.99	,	74.006	,	74.009	,
+	74.01	,	73.989	,	73.99	,	74.009	,	74.014	,
+	74.015	,	74.008	,	73.993	,	74	,	74.01	,
+	73.982	,	73.984	,	73.995	,	74.017	,	74.013	
+), ncol = 5, byrow = T)
+
+# Show the data
+data
+
+######################################################################################
+					#Graphing data
+######################################################################################
 # Graph this data
-hist(data, breaks = 20) #histogram for the whole data with 20 breaks
-boxplot(as.vector(data)) #boxplot for the whole data
-boxplot(data) #boxplot for each column
+# histogram for the whole data 
+# with the maximum number of breaks 10
+# in other words, the maximum number of bins is 11 
+hist(data, breaks = 10) 
+# Notice that y-axis is frequency
 
+# boxplot for the whole data
+boxplot(as.vector(data)) 
+
+# boxplot for each column
+boxplot(data) 
+# boxplot for each row
+boxplot(t(data))
+# They are just examples and please notice that 
+# it makes less sense if you draw boxplots for each column
+# or for each row at the setting of this data
+
+######################################################################################
+					#Computing basic statistics
+######################################################################################
 # Basic statistics
-mean(data) #grand mean
-colMeans(data) #means for each column
-rowMeans(data) #means for each row
+mean(data) # grand mean
+colMeans(data) # means for each column
+rowMeans(data) # means for each row
 
-var(as.vector(data)) #grand variance
-var(data) #covariance matrix
+var(as.vector(data)) # grand variance
+var(data) # covariance matrix for each column
+var(t(data)) # covariance matrix for each row
 
-quantile(data, c(0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)) #percentiles including 1%, 5%, 10%, 25%, 50%, 75%, 90%, 95% and 99%
+# percentiles including 1%, 5%, 10%, 25%, 
+# 50%, 75%, 90%, 95% and 99%
+quantile(data 
+	, c(0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)) 
 
-# fit a model based on the univariate normal distribution for the whole data
-mu <- mean(data) #grand mean
-sigma <- sqrt(var(as.vector(data))) #standard deviation
+######################################################################################
+					#Fitting a normal distribution
+######################################################################################
+# fit a normal distribution for the whole data 
+# estimate parameters
+mu <- mean(data) # grand mean
+sigma <- sqrt(var(as.vector(data))) # standard deviation
 
-hist(data, breaks = 20, freq = FALSE, ylim = c(0, 40)) #histogram for the whole data with 20 breaks
+# draw a histogram for the whole data 
+# with 10 breaks (11 bins) 
+# and y-axis, density (pdf)
+hist(data, freq = FALSE, ylim = c(0, 40), breaks = 10)
+# add a normal pdf with estimated parameers to the histograme
 curve(dnorm(x, mean = mu, sd = sigma), add = T, col = 'blue')
 
+######################################################################################
+					#Checking the normality
+######################################################################################
 # check the normality (Q-Q plot)
 # we need to have the empirical quantile and the theoretical quantile based on the empirical probability
 
@@ -42,5 +118,7 @@ e.p <- 1:n / n
 t.q <- qnorm(e.p, mean = mu, sd = sigma)
 
 # 5. draw a Q-Q plot
+# draw a scatter plot with x-axis the empirical quantile 
+# and y-axis the theoretical quantile
 plot(e.q, t.q, xlab = 'Empirical', ylab = 'Theoretical', main = 'Q-Q plot')
 points(c(0, 100), c(0, 100), type = 'l', col = 'blue') #reference line

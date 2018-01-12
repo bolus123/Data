@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.9.5)  11 JAN 2018 18:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.9.5)  12 JAN 2018 12:32
 entering extended mode
 **./main.tex
 (main.tex
@@ -448,34 +448,46 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 151.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (project.tex
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 7.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 8.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsptm.fd"
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 7.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 8.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 8.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 9.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Overfull \hbox (17.46921pt too wide) in paragraph at lines 11--11
+Overfull \hbox (17.46921pt too wide) in paragraph at lines 13--13
  []\OT1/pcr/m/n/12 bolus123/R-handout/master/DescriptiveStatistics/example.csv'
 [] 
  []
 
 [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Overfull \hbox (24.6692pt too wide) in paragraph at lines 60--60
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+Overfull \hbox (17.46921pt too wide) in paragraph at lines 77--77
+ []  \OT1/pcr/m/n/12 # it makes less sense if you draw boxplots for each column
+[] 
+ []
+
+[3]
+Overfull \hbox (24.6692pt too wide) in paragraph at lines 113--113
+ []\OT1/pcr/m/n/12 # add a normal pdf with estimated parameers to the histogram
+e[] 
+ []
+
+
+Overfull \hbox (24.6692pt too wide) in paragraph at lines 114--114
  []\OT1/pcr/m/n/12 curve(dnorm(x, mean = mu, sd = sigma), add = T, col = 'blue'
 )[] 
  []
 
-[2])
+[4])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 179.
- [3]
+ [5]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 179.
  (main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 179.
@@ -485,21 +497,21 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 179.
  ) 
 Here is how much of TeX's memory you used:
- 7293 strings out of 493323
- 100832 string characters out of 3139067
+ 7295 strings out of 493323
+ 100844 string characters out of 3139067
  190421 words of memory out of 3000000
  10704 multiletter control sequences out of 15000+200000
  12988 words of font info for 39 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
- 28i,6n,26p,323b,586s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28i,6n,26p,375b,588s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/ur
 w/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on main.pdf (3 pages, 57047 bytes).
+Output written on main.pdf (5 pages, 60006 bytes).
 PDF statistics:
- 49 PDF objects out of 1000 (max. 8388607)
- 12 named destinations out of 1000 (max. 500000)
+ 57 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

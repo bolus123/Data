@@ -1,7 +1,8 @@
-This handout will introduce a basic use of R with an example describing a data. The program is provided on my Github: \par\href{url}{https://raw.githubusercontent.com/bolus123/R-handout/master/DescriptiveStatistics/example.R}
+This handout will introduce a basic use of R with an example describing a data. This pdf file and the R program are provided on my Github: \par\href{url}{https://github.com/bolus123/R-handout/tree/master/DescriptiveStatistics}
 \begin{enumerate}
-	\item Load a data. Here, I will receive a CSV file from my Github. You can also load a data from different types of data source such as Excel, databases and etc.. 
-	\par This data is monitoring a manufacturing process about Automobile Engine Piston Rings. Theoretically each column is identically and independently distributed with each other.
+	\item Load a data. Here, I will only show how to read a CSV file from my Github. You can also load a data from different types of data source, such as Excel, SQL server and etc.. Because I am not going to cover all of them, if you are interested in other methods, please see:
+	\par \href{url}{https://cran.r-project.org/doc/manuals/r-devel/R-data.html} 
+	\par This CSV file contains a data monitoring a manufacturing process about Automobile Engine Piston Rings \cite{Montgomery09}. Theoretically, each column is identically and independently distributed with each other.
 		\begin{itemize}
 			\item R code
 				\begin{verbatim}
@@ -59,7 +60,7 @@ This handout will introduce a basic use of R with an example describing a data. 
 					curve(dnorm(x, mean = mu, sd = sigma), add = T, col = 'blue')
 				\end{verbatim}
 		\end{itemize}
-	\item Check the nromality. We need to verify our normal assumption, because there is no guarantee that we are right. Here, we will draw a Q-Q plot.
+	\item Check the normality. We need to verify our normal assumption, because there is no guarantee that we are right. Here, I will show a verification by a Q-Q plot.
 		\begin{itemize}
 			\item R code
 				\begin{verbatim}

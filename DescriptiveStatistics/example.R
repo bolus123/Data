@@ -108,16 +108,22 @@ curve(dnorm(x, mean = mu, sd = sigma), add = T, col = 'blue')
 # 1. we need to know the whole sample size
 n <- dim(data)[1] * dim(data)[2]
 
-# 2. sort the data and this is our empirical quantile
-e.q <- sort(data)
+# 2. sort the data and obtain their frequencies
+e.d <- table(as.vector(data))
 
-# 3. calculate the Empirical cdf
-e.p <- 1:n / n
+# 3. the empirical quantiles are the names of this vector
+e.q <- as.numeric(names(e.d))
 
-# 4. find out the theoretical quantile
-t.q <- qnorm(e.p, mean = mu, sd = sigma)
+# 4. calculate the empirical p.d.f.
+e.p <- e.d / n
 
-# 5. draw a Q-Q plot
+# 5. calculate the empirical c.d.f.
+e.c <- cumsum(e.p)
+
+# 6. find out the theoretical quantile
+t.q <- qnorm(e.c, mean = mu, sd = sigma)
+
+# 7. draw a Q-Q plot
 # draw a scatter plot with x-axis the empirical quantile 
 # and y-axis the theoretical quantile
 plot(e.q, t.q, xlab = 'Empirical', ylab = 'Theoretical', main = 'Q-Q plot')

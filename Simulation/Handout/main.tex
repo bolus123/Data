@@ -1,0 +1,179 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx,subfigure,amsthm,amsmath,latexsym,amssymb,times,asa}
+\usepackage{float,epsfig,multirow,rotating,times,verbatim,wrapfig,color}
+\RequirePackage{natbib}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
+
+\urlstyle{same}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.6in}
+\setlength{\textheight}{9in}
+\evensidemargin \oddsidemargin
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{result}[theorem]{Result}
+\newcommand{\abs}[1]{|#1|}
+\newcommand{\norm}[1]{\Vert#1\Vert}
+\newcommand{\R}{I\!\!R}
+\newcommand{\bell}{\boldsymbol{\ell}}
+\newcommand{\bd}{\boldsymbol{d}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bnabla}{\boldsymbol{\nabla}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bDelta}{\boldsymbol{\Delta}}
+\newcommand{\bkappa}{\boldsymbol{\kappa}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bdelta}{\boldsymbol{\delta}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bChii}{\boldsymbol{\Chi}}
+\newcommand{\bXi}{\boldsymbol{\Xi}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bGamma}{\boldsymbol{\Gamma}}
+\newcommand{\bgamma}{\boldsymbol{\gamma}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\bUpsilon}{\boldsymbol{\Upsilon}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bzeta}{\boldsymbol{\zeta}}
+\newcommand{\bvarrho}{\boldsymbol{\varrho}}
+\newcommand{\bvarphi}{\boldsymbol{\varphi}}
+\newcommand{\bTheta}{\boldsymbol{\Theta}}
+\newcommand{\bvartheta}{\boldsymbol{\vartheta}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bomega}{\boldsymbol{\omega}}
+\newcommand{\prm}{^{\prime}}
+\newcommand{\bB}{\boldsymbol{B}}
+\newcommand{\bC}{\boldsymbol{C}}
+\newcommand{\bc}{\boldsymbol{c}}
+\newcommand{\bD}{\boldsymbol{D}}
+\newcommand{\bff}{\boldsymbol{f}}
+\newcommand{\bV}{\boldsymbol{V}}
+\newcommand{\bG}{\boldsymbol{G}}
+\newcommand{\bH}{\boldsymbol{H}}
+\newcommand{\bmm}{\boldsymbol{m}}
+\newcommand{\bM}{\boldsymbol{M}}
+\newcommand{\bi}{\boldsymbol{i}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bJ}{\boldsymbol{J}}
+\newcommand{\bK}{\boldsymbol{K}}
+\newcommand{\bk}{\boldsymbol{k}}
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bS}{\boldsymbol{S}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bT}{\boldsymbol{T}}
+\newcommand{\bE}{\boldsymbol{E}}
+\newcommand{\be}{\boldsymbol{e}}
+\newcommand{\bp}{\boldsymbol{p}}
+\newcommand{\bP}{\boldsymbol{P}}
+\newcommand{\bq}{\boldsymbol{q}}
+\newcommand{\bQ}{\boldsymbol{Q}}
+\newcommand{\bR}{\boldsymbol{R}}
+\newcommand{\bW}{\boldsymbol{W}}
+\newcommand{\bu}{\boldsymbol{u}}
+\newcommand{\bv}{\boldsymbol{v}}
+\newcommand{\bs}{\boldsymbol{s}}
+\newcommand{\bU}{\boldsymbol{U}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\by}{\boldsymbol{y}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\bZ}{\boldsymbol{Z}}
+\newcommand{\bz}{\boldsymbol{z}}
+\newcommand{\blda}{\boldsymbol{a}}
+\newcommand{\bOO}{\boldsymbol{O}}
+\newcommand{\bw}{\boldsymbol{w}}
+\newcommand{\bee}{\boldsymbol{e}}
+\newcommand{\bzero}{\boldsymbol{0}}
+\newcommand{\lsb}{\bigl\{}
+\newcommand{\rsb}{\bigr\}}
+\newcommand{\bj}{{\bf{J}}}
+\newcommand{\bone}{\boldsymbol{1}}
+\newcommand{\bmV}{\boldsymbol{\mathcal V}}
+\newcommand{\bmI}{\boldsymbol{\mathcal I}}
+\newcommand{\bmA}{\boldsymbol{\mathcal A}}
+\newcommand{\mM}{\mathcal M}
+\newcommand{\mD}{\mathcal D}
+\newcommand{\mR}{\mathcal R}
+\newcommand{\mF}{\mathcal F}
+\newcommand{\mK}{\mathcal K}
+\newcommand{\mI}{\mathcal I}
+\newcommand{\mB}{\mathcal B}
+\newcommand{\mL}{\mathcal L}
+\newcommand{\mG}{\mathcal G}
+\newcommand{\one}{$\phantom{1}$}
+\newcommand{\oo}{$\phantom{00}$}
+\newcommand{\ooo}{$\phantom{000}$}
+\newcommand{\oc}{$\phantom{0,}$}
+\newcommand{\ooc}{$\phantom{00,}$}
+\newcommand{\oooc}{$\phantom{000,}$}
+\newcommand{\Ncand}{N_{\rm cand}}
+\newcommand{\tover}{t_{\rm over}}
+\newcommand{\tstd}{t_{\rm std,1}}
+\newcommand{\ttwostage}{t_{\rm 2S,1}}
+\newcommand{\psp}{P(S')}
+\newcommand{\pep}{P(E')}
+\newcommand{\pacc}{P_{\rm acc}}
+\newcommand{\prob}{\mbox{I}\!\mbox{Pr}}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\hyphenation{Lan-ge-vin Lan-ge-vins}
+\newcommand{\apprasym}{
+ \mathrel{\ooalign{$\sim$\cr\kern+1.25pt\large $\colon$}}}
+
+
+\newcommand{\floor}[1]{{\lfloor{#1}\rfloor}}
+\begin{document}
+\markboth{Author}{Title}
+\thispagestyle{empty}
+\vspace{-1in}
+\title{R Handout: Descriptive Statistics}
+%\author{{Yuhui Yao}
+%}
+\date{\vspace{-0.3in}}
+\maketitle
+\renewcommand\baselinestretch{1.33}
+%\renewcommand\baselinestretch{1.4}
+
+%\begin{abstract}
+%\input{abstract}
+
+%{\bf Keywords: }
+%\end{abstract}
+
+\normalsize
+
+\input{project}
+%\input{research}
+
+\bibliographystyle{plain}
+%\bibliography{references}
+
+%\begin{thebibliography}{9}
+	
+%	\bibitem{Montgomery09}
+%	Douglas C. Montgomery,
+%	\textit{Introduction to Statistical Quality Control},
+%	Wiley, NJ,
+%	6th edition,
+%	2009.
+	
+%\end{thebibliography}
+
+\end{document}

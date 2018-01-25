@@ -67,7 +67,7 @@ This handout will introduce a basic method of simulation. This pdf file and the 
 				\end{itemize}
 				
 		\end{enumerate}
-	\item Simulate data from a contaminated normal distribution. Suppose we have a contaminated normal distribution as section 3.4.1 in the 7th edition. Because $W = ZI_{1-\epsilon} + \sigma_c Z (1 - I_{1 - \epsilon})$, we can consider this distribution is consisted by "jumping" between two normal distributions. One is $N(0, 1)$ and another is $N(0, \sigma_c)$, and the "button" triggering the "jump" is $I_{1-\epsilon}$. We need to simulate this process to get the distribution.
+	\item Simulate data from a contaminated normal distribution. Suppose we have a contaminated normal distribution as section 3.4.1 in the 7th edition. Because $W = ZI_{1-\epsilon} + \sigma_c Z (1 - I_{1 - \epsilon})$, we can consider this distribution is consisted by "jumping" between two normal distributions. One is $N(0, 1)$ and another is $N(0, \sigma_c^2)$, and the "button" triggering the "jump" is $I_{1-\epsilon}$. We need to simulate this process to get the distribution.
 		\begin{itemize}
 			\item R code
 			\begin{verbatim}
@@ -95,13 +95,13 @@ This handout will introduce a basic method of simulation. This pdf file and the 
 				# Use histogram to graph the distribution
 				hist(X1, freq = F)
 				
-				# 3.4.26 part b, eps = 0.15, mu1 = mu2 = 0, 
+				# 3.4.26 part c, eps = 0.15, mu1 = mu2 = 0, 
 				# sigma1 = 1, sigma2 = sigma.c = 20
 				X2 <- rctnorm(n, 0.15, mu = c(0, 0), sigma = c(1, 20))
 				# Use histogram to graph the distribution
 				hist(X2, freq = F)
 				
-				# 3.4.26 part b, eps = 0.25, mu1 = mu2 = 0, 
+				# 3.4.26 part d, eps = 0.25, mu1 = mu2 = 0, 
 				# sigma1 = 1, sigma2 = sigma.c = 20
 				X3 <- rctnorm(n, 0.25, mu = c(0, 0), sigma = c(1, 20))
 				# Use histogram to graph the distribution

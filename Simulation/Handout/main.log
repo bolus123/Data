@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.9.5)  24 JAN 2018 18:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.9.5)  24 JAN 2018 18:45
 entering extended mode
 **./main.tex
 (main.tex
@@ -485,7 +485,7 @@ Here is how much of TeX's memory you used:
  10719 multiletter control sequences out of 15000+200000
  15712 words of font info for 56 fonts, out of 3000000 for 9000
  1143 hyphenation exceptions out of 8191
- 28i,6n,26p,525b,664s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 28i,6n,26p,527b,664s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
@@ -494,7 +494,7 @@ c/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (4 pages, 92990 bytes).
+Output written on main.pdf (4 pages, 93169 bytes).
 PDF statistics:
  64 PDF objects out of 1000 (max. 8388607)
  11 named destinations out of 1000 (max. 500000)

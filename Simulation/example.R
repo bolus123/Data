@@ -74,13 +74,13 @@ X1 <- rctnorm(n, 0.15, mu = c(0, 0), sigma = c(1, 10))
 # Use histogram to graph the distribution
 hist(X1, freq = F)
 
-# 3.4.26 part b, eps = 0.15, mu1 = mu2 = 0, 
+# 3.4.26 part c, eps = 0.15, mu1 = mu2 = 0, 
 # sigma1 = 1, sigma2 = sigma.c = 20
 X2 <- rctnorm(n, 0.15, mu = c(0, 0), sigma = c(1, 20))
 # Use histogram to graph the distribution
 hist(X2, freq = F)
 
-# 3.4.26 part b, eps = 0.25, mu1 = mu2 = 0, 
+# 3.4.26 part d, eps = 0.25, mu1 = mu2 = 0, 
 # sigma1 = 1, sigma2 = sigma.c = 20
 X3 <- rctnorm(n, 0.25, mu = c(0, 0), sigma = c(1, 20))
 # Use histogram to graph the distribution

@@ -1,130 +1,108 @@
 ######################################################################################
-					#Loading data
+					#Probability Integral Transform
 ######################################################################################
-# 1. Loading table from a CSV file
-# Locate the CSV file
-addr <- 'https://raw.githubusercontent.com/
-bolus123/R-handout/master/DescriptiveStatistics/example.csv'
-# The link can be replaced by your local address 
-# such as 'C:/yourfolder/example.csv'
+# Set a seed to make this process repeatable
+set.seed(12345) 
 
-# Load the data in R and transfer it into a matrix
-data <- as.matrix(read.csv(file = addr))
+# Set the number of simulations
+n <- 100000
 
-# Show the data
-data
+# Simulate data from a standard normal distribution
+X <- rnorm(n)
 
-# 2. Directly input data
-data <- matrix(c(
-	74.03	,	74.002	,	74.019	,	73.992	,	74.008	,
-	73.995	,	73.992	,	74.001	,	74.011	,	74.004	,
-	73.988	,	74.024	,	74.021	,	74.005	,	74.002	,
-	74.002	,	73.996	,	73.993	,	74.015	,	74.009	,
-	73.992	,	74.007	,	74.015	,	73.989	,	74.014	,
-	74.009	,	73.994	,	73.997	,	73.985	,	73.993	,
-	73.995	,	74.006	,	73.994	,	74	,	74.005	,
-	73.985	,	74.003	,	73.993	,	74.015	,	73.988	,
-	74.008	,	73.995	,	74.009	,	74.005	,	74.004	,
-	73.998	,	74	,	73.99	,	74.007	,	73.995	,
-	73.994	,	73.998	,	73.994	,	73.995	,	73.99	,
-	74.004	,	74	,	74.007	,	74	,	73.996	,
-	73.983	,	74.002	,	73.998	,	73.997	,	74.012	,
-	74.006	,	73.967	,	73.994	,	74	,	73.984	,
-	74.012	,	74.014	,	73.998	,	73.999	,	74.007	,
-	74	,	73.984	,	74.005	,	73.998	,	73.996	,
-	73.994	,	74.012	,	73.986	,	74.005	,	74.007	,
-	74.006	,	74.01	,	74.018	,	74.003	,	74	,
-	73.984	,	74.002	,	74.003	,	74.005	,	73.997	,
-	74	,	74.01	,	74.013	,	74.02	,	74.003	,
-	73.982	,	74.001	,	74.015	,	74.005	,	73.996	,
-	74.004	,	73.999	,	73.99	,	74.006	,	74.009	,
-	74.01	,	73.989	,	73.99	,	74.009	,	74.014	,
-	74.015	,	74.008	,	73.993	,	74	,	74.01	,
-	73.982	,	73.984	,	73.995	,	74.017	,	74.013	
-), ncol = 5, byrow = T)
+# Find out the coresponding quantiles
+Y <- pnorm(X)
 
-# Show the data
-data
+# Use histogram to graph the distribution
+hist(Y, freq = F, ylim = c(0, 1.5))
 
 ######################################################################################
-					#Graphing data
+					#Normal distribution
 ######################################################################################
-# Graph this data
-# histogram for the whole data 
-# with the maximum number of breaks 10
-# in other words, the maximum number of bins is 11 
-hist(data, breaks = 10) 
-# Notice that y-axis is frequency
+# 1. Direct
+# Set a seed to make this process repeatable
+set.seed(12345) 
 
-# boxplot for the whole data
-boxplot(as.vector(data)) 
+# Set the number of simulations
+n <- 100000
 
-# boxplot for each column
-boxplot(data) 
-# boxplot for each row
-boxplot(t(data))
-# They are just examples and please notice that 
-# it makes less sense if you draw boxplots for each column
-# or for each row at the setting of this data
+# Simulate data from a standard normal distribution
+X <- rnorm(n)
+
+# Use histogram to graph the distribution
+hist(X, freq = F)
+
+# 2. Indirect
+# Set a seed to make this process repeatable
+set.seed(12345) 
+
+# Set the number of simulations
+n <- 100000
+
+# Simulate data from Uniform(0,1)
+Y <- runif(n)
+
+# By PIT, get a sample from a standard normal distribution
+X <- qnorm(Y)
+
+# Use histogram to graph the distribution
+hist(X, freq = F)
+######################################################################################
+					#Contaminated Normal distribution
+######################################################################################
+# Set a seed to make this process repeatable
+set.seed(12345) 
+
+# Set the number of simulations
+n <- 100000
+
+# Build a function to simulate the "jumping" process
+rctnorm <- function(n, eps = 0.5, mu = c(0, 0), 
+sigma = c(1, 1)) {
+
+# Define the "jumping" process
+jump <- sample(c(1, 2), prob = c(1 - eps, eps), 
+size = n, replace = TRUE)
+# Simulate data with "jumps"
+rnorm(n, mean = mu[jump], sd = sigma[jump])
+
+}
+
+# 3.4.26 part b, eps = 0.15, mu1 = mu2 = 0, 
+# sigma1 = 1, sigma2 = sigma.c = 10
+X1 <- rctnorm(n, 0.15, mu = c(0, 0), sigma = c(1, 10))
+# Use histogram to graph the distribution
+hist(X1, freq = F)
+
+# 3.4.26 part b, eps = 0.15, mu1 = mu2 = 0, 
+# sigma1 = 1, sigma2 = sigma.c = 20
+X2 <- rctnorm(n, 0.15, mu = c(0, 0), sigma = c(1, 20))
+# Use histogram to graph the distribution
+hist(X2, freq = F)
+
+# 3.4.26 part b, eps = 0.25, mu1 = mu2 = 0, 
+# sigma1 = 1, sigma2 = sigma.c = 20
+X3 <- rctnorm(n, 0.25, mu = c(0, 0), sigma = c(1, 20))
+# Use histogram to graph the distribution
+hist(X3, freq = F)
+
+# An example when we have 2 normal distribution 
+# with different locations. eps = 0.5, mu1 = 0, 
+# mu2 = 2, sigma1 = sigma2 = 1
+X4 <- rctnorm(n, 0.5, mu = c(0, 5), sigma = c(1, 1)) 
+hist(X4, freq = F)
 
 ######################################################################################
-					#Computing basic statistics
+					#gamma distribution
 ######################################################################################
-# Basic statistics
-mean(data) # grand mean
-colMeans(data) # means for each column
-rowMeans(data) # means for each row
+# Set a seed to make this process repeatable
+set.seed(12345) 
 
-var(as.vector(data)) # grand variance
-var(data) # covariance matrix for each column
-var(t(data)) # covariance matrix for each row
+# Set the number of simulations
+n <- 100000
 
-# percentiles including 1%, 5%, 10%, 25%, 
-# 50%, 75%, 90%, 95% and 99%
-quantile(data 
-	, c(0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)) 
+# Simulate data from gamma with alpha = 2 and beta = 5
+X <- rgamma(n, 2, 5)
 
-######################################################################################
-					#Fitting a normal distribution
-######################################################################################
-# fit a normal distribution for the whole data 
-# estimate parameters
-mu <- mean(data) # grand mean
-sigma <- sqrt(var(as.vector(data))) # standard deviation
-
-# draw a histogram for the whole data 
-# with 10 breaks (11 bins) 
-# and y-axis, density (pdf)
-hist(data, freq = FALSE, ylim = c(0, 40), breaks = 10)
-# add a normal pdf with estimated parameers to the histograme
-curve(dnorm(x, mean = mu, sd = sigma), add = T, col = 'blue')
-
-######################################################################################
-					#Checking the normality
-######################################################################################
-# check the normality (Q-Q plot)
-# we need to have the empirical quantile and the theoretical quantile based on the empirical probability
-
-# 1. we need to know the whole sample size
-n <- dim(data)[1] * dim(data)[2]
-
-# 2. sort the data and obtain their frequencies
-e.d <- table(as.vector(data))
-
-# 3. the empirical quantiles are the names of this vector
-e.q <- as.numeric(names(e.d))
-
-# 4. calculate the empirical p.d.f.
-e.p <- e.d / n
-
-# 5. calculate the empirical c.d.f.
-e.c <- cumsum(e.p)
-
-# 6. find out the theoretical quantile
-t.q <- qnorm(e.c, mean = mu, sd = sigma)
-
-# 7. draw a Q-Q plot
-# draw a scatter plot with x-axis the empirical quantile 
-# and y-axis the theoretical quantile
-plot(e.q, t.q, xlab = 'Empirical', ylab = 'Theoretical', main = 'Q-Q plot')
-points(c(0, 100), c(0, 100), type = 'l', col = 'blue') #reference line
+# Use histogram to graph the distribution
+hist(X, freq = F)

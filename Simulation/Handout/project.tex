@@ -158,34 +158,7 @@ This handout will introduce a basic method of simulation. This pdf file and the 
 				points(x, dnorm(x, 5, 1), type = 'l', col = 'blue')
 				points(x, dctnorm(x, 0.5, c(0, 5), c(1, 1)), type = 'l'
 				, col = 'black')
-				
-				# Comparing these histograms
-				# Define a 2 by 2 graph
-				par(mfrow = c(2, 2))
-				hist(X1, freq = F, main = 'eps = 0.15 and sigma.c = 10'
-				, ylim = c(0, 0.45))
-				points(x, dnorm(x, 0, 1), type = 'l', col = 'red')
-				points(x, dnorm(x, 0, 10), type = 'l', col = 'blue')
-				points(x, dctnorm(x, 0.15, c(0, 0), c(1, 10)), type = 'l'
-				, col = 'black')
-				hist(X2, freq = F, main = 'eps = 0.15 and sigma.c = 20'
-				, ylim = c(0, 0.45))
-				points(x, dnorm(x, 0, 1), type = 'l', col = 'red')
-				points(x, dnorm(x, 0, 20), type = 'l', col = 'blue')
-				points(x, dctnorm(x, 0.15, c(0, 0), c(1, 20)), type = 'l'
-				, col = 'black')
-				hist(X3, freq = F, main = 'eps = 0.25 and sigma.c = 20'
-				, ylim = c(0, 0.45))
-				points(x, dnorm(x, 0, 1), type = 'l', col = 'red')
-				points(x, dnorm(x, 0, 20), type = 'l', col = 'blue')
-				points(x, dctnorm(x, 0.25, c(0, 0), c(1, 20)), type = 'l'
-				, col = 'black')
-				hist(X4, freq = F, main = 'eps = 0.5 with different locations 
-				and same sigmas', ylim = c(0, 0.45))
-				points(x, dnorm(x, 0, 1), type = 'l', col = 'red')
-				points(x, dnorm(x, 5, 1), type = 'l', col = 'blue')
-				points(x, dctnorm(x, 0.5, c(0, 5), c(1, 1)), type = 'l'
-				, col = 'black')
+				15
 			\end{verbatim}
 		\end{itemize}
 

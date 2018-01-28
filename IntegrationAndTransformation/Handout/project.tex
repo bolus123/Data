@@ -1,115 +1,88 @@
-This handout will introduce a basic method of simulation. This pdf file and the R program are provided on Blackboard.
-%This pdf file and the R program are provided on my Github: \par\href{url}{https://github.com/bolus123/R-handout/tree/master/DescriptiveStatistics}
 \begin{enumerate}
-	\item Simulate data from a standard normal distribution
+	\item Monte Carlo Method
+	\par Suppose $X$ is a random variable with a p.d.f. $f$ and a c.d.f. $F$ over a domain $D$. Also, we have a sample $X_s = \{x_1, x_2, ..., x_n\}$ from $X$ with $n$ observations.
+	\begin{equation*}
+		E(X) = \int_{D}xf(x)dx \approx \bar{X} = \frac{1}{n} \sum_{i = 1}^{n}x_i
+	\end{equation*}
+	Besides, because of Central Limit Theorem, $\bar{X}$ asymptotically follows $N(\mu, \frac{\sigma^2}{n})$ where $\mu = E(X)$ is the mean of $X$ and $\sigma^2$ is the variance of $X$. So, when $n \rightarrow \infty$, $\bar{X} \rightarrow E(X)$. Hence, intuitively, the result is more precise with a larger sample size.
+	\item Example. $Y = |X|$ where $X \sim N(0, 1)$. Find out $E(Y)$
 		\begin{enumerate}
-			\item Direct simulation
+			\item Direct Integration
+				\par As we know, the p.d.f. of $Y$
+				\begin{equation*}
+					f_Y(y) = 2\phi(y), y \ge 0
+				\end{equation*}
+				where $\phi$ is the p.d.f. of the standard normal distribution.
 				\begin{itemize}
 					\item R code
 					\begin{verbatim}
-					# Set a seed to make this process repeatable
-					set.seed(12345) 
-					
-					# Set the number of simulations
-					n <- 100000
-					
-					# Simulate data from a standard normal distribution
-					X <- rnorm(n)
-					
-					# Use histogram to graph the distribution
-					hist(X, freq = F)
+						# define the p.d.f. of Y
+						Y.pdf <- function(y) 2 * dnorm(y)
+						
+						# define the integrand of the expecation of Y
+						E.Y <- function(y) y * Y.pdf(y)
+						
+						# Integrate the integrand
+						integrate(E.Y, lower = 0, upper = Inf)
+						# Result: 0.7978846
 					\end{verbatim}
 				\end{itemize}
-				
+			\item Monte Carlo Method with a transformation
+				\par Because 
+				\begin{equation*}
+					E(Y) = E(|X|) = \int_{-\infty}^{\infty}|x| \phi(x)dx \approx \frac{1}{n}\sum_{i = 1}^{n} |x_i|
+				\end{equation*}
+				where $n$ is the number of simulation and $X_s = \{ x_1, ..., x_n\}$ is a sample from $N(0, 1)$.
+				\begin{itemize}
+					\item R code
+					\begin{verbatim}
+						# set seed to make this process repeatable
+						set.seed(12345)
+						
+						# set the number of simulation
+						n <- 1000
+						
+						# simulate a sample from the standard normal distribution
+						X.s <- rnorm(n)
+						
+						# calculate the mean of the absoluate values
+						mean(abs(X.s))
+						# Result: 0.7944
+					\end{verbatim}
+				\end{itemize}
+			\item Monte Carlo Method with another transformation
+				\par Because $exp(1)$ has a same domain as $Y$, 
+				\begin{equation*}
+					E(Y) = \int_{0}^{\infty}yf_Y(y)dy = \int_{0}^{\infty}\frac{yf_y(y)}{e^{-y}}e^{-y}dy = E(\frac{yf_Y(y)}{e^{-y}}) \approx \frac{1}{n}\sum_{i=1}^{n}\frac{y_if_Y(y_i)}{e^{-y_i}}
+				\end{equation*}
+				where $n$ is the number of simulation and $Y_s = \{y_1, ..., y_n\}$ is a sample from $exp(1)$.
+				\begin{itemize}
+					\item R code
+					\begin{verbatim}
+						# set seed to make this process repeatable
+						set.seed(12345)
+						
+						# set the number of simulation
+						n <- 1000
+						
+						# define the p.d.f. of Y
+						Y.pdf <- function(y) 2 * dnorm(y)
+						
+						# simulate a sample from the standard normal distribution
+						Y.s <- rexp(n)
+						
+						# calculate the mean of the absoluate values
+						mean(Y.s * Y.pdf(Y.s) / dexp(Y.s))
+						# Result: 0.7729
+					\end{verbatim}
+				\end{itemize}
 		\end{enumerate}
-	\item Simulate data from a contaminated normal distribution. Suppose we have a contaminated normal distribution as section 3.4.1 in the 7th edition. Because $W = ZI_{1-\epsilon} + \sigma_c Z (1 - I_{1 - \epsilon})$, we have this definition
-		\begin{equation*}
-			W = XI_{1-\epsilon} + Y (1 - I_{1 - \epsilon})
-		\end{equation*}
-	where $X \sim N(0,1)$, $Y \sim N(0, \sigma_c^2)$ and $I \sim Bernoulli(1 - eps)$
-		\begin{itemize}
-			\item R code
-			\begin{verbatim}
-				# Set a seed to make this process repeatable
-				set.seed(12345) 
-				
-				# Set the number of simulations
-				n <- 100000
-				
-				# Build a function to simulate a contaminated normal distribution
-				rctnorm <- function(n, eps = 0.5, mu = c(0, 0), 
-				sigma = c(1, 1)) {
-				
-				# Simulate I
-				I <- rbinom(n, 1, 1 - eps)
-				# Simulate X
-				X <- rnorm(n, mu[1], sigma[1])
-				# Simulate Y
-				Y <- rnorm(n, mu[2], sigma[2])
-				
-				# Simulate W
-				W <- rep(NA, n)
-				for (i in 1:n){
-				W[i] <- ifelse(I[i] == 1, X[i], Y[i])
-				}
-				W
-				}
-				
-				# the p.d.f of contaminated normal distribution
-				dctnorm <- function(x, eps = 0.5, mu = c(0, 0), 
-				sigma = c(1, 1)){
-				dnorm(x, mu[1], sigma[1]) * (1 - eps) + 
-				dnorm(x, mu[2], sigma[2]) * eps
-				}
-
-				# get a sequence from -100 to 100 having step 0.01 
-				# as the points in x-aixs				
-				x <- seq(-100, 100, 0.01)
-
-				# 3.4.26 part b, eps = 0.15, mu1 = mu2 = 0, 
-				# sigma1 = 1, sigma2 = sigma.c = 10
-				X1 <- rctnorm(n, 0.15, mu = c(0, 0), sigma = c(1, 10))
-				# Use histogram to graph the distribution
-				hist(X1, freq = F, main = 'eps = 0.15 and sigma.c = 10'
-				, ylim = c(0, 0.45))
-				
-				# graph the p.d.f. of standard normal distribution 
-				# in a red curve
-				points(x, dnorm(x, 0, 1), type = 'l', col = 'red')
-				
-				# graph the p.d.f. of normal distribution with mu=0 
-				# and sigma=10 in a blue curve
-				points(x, dnorm(x, 0, 10), type = 'l', col = 'blue')
-				
-				# graph the p.d.f. of contanminated normal distribution 
-				# with eps = 0.15, mu1 = mu2 = 0, sigma1 = 1, sigma 2 = 10 
-				# in a black curve
-				points(x, dctnorm(x, 0.15, c(0, 0), c(1, 10)), type = 'l'
-				, col = 'black')
-				
-				# An example when we have 2 normal distribution 
-				# with different locations. eps = 0.5, mu1 = 0, 
-				# mu2 = 5, sigma1 = sigma2 = 1
-				X4 <- rctnorm(n, 0.5, mu = c(0, 5), sigma = c(1, 1)) 
-				hist(X4, freq = F, main = 'eps = 0.5 with different locations 
-				and same sigmas', ylim = c(0, 0.45))
-				
-				# graph the p.d.f. of standard normal distribution 
-				# in a red curve
-				points(x, dnorm(x, 0, 1), type = 'l', col = 'red')
-				
-				# graph the p.d.f. of normal distribution 
-				# with mu = 5 and sigma = 1 in a blue curve
-				points(x, dnorm(x, 5, 1), type = 'l', col = 'blue')
-				
-				# graph the p.d.f. of contaminated normal distribution
-				# with eps = 0.5, mu1 = 0, mu2 = 5, sigma1 = 1 
-				# and sigma2 = 2 in a black curve
-				points(x, dctnorm(x, 0.5, c(0, 5), c(1, 1)), type = 'l'
-				, col = 'black')
-				15
-			\end{verbatim}
-		\end{itemize}
-
-	\item Practice: Simulate data from a gamma distribution with $\alpha = 2$ and $\beta = 5$. (You will need to use rgamma and help(rgamma) in R) 
+	\item Summary: Steps of Monte Carlo Method
+		\begin{enumerate}
+			\item Check the domain
+			\item Simulate an appropriate sample over the domain 
+			\item Calculate the mean via an appropriate transformation
+		\end{enumerate}
+	\item Practice: suppose $Y = 3(ln(X)^{1/3} - 1)$, where $X \sim exp(2)$. Use Monte Carlo Method to find $E(Y)$.
+	\par Hint: You need to show the analytical part and the numerical part in R. Also, you may need to use $rexp$ and $help(rexp)$ in R
 \end{enumerate}

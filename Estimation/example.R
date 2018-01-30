@@ -1,14 +1,15 @@
+###############################################################################
+	#load the raw data and count crimes by month and type
+###############################################################################
 data <- read.csv(file = '/home/yuhuiyao/Documents/Github/R-handout/Estimation/crime.csv') 
 monthly.freq <- as.data.frame(with(data, table(TYPE, YEAR, MONTH)))
 
-
-monthly.freq$TYPE[monthly.freq$TYPE == ]
-
 save(monthly.freq, file = '/home/yuhuiyao/Documents/Github/R-handout/Estimation/example.Rdata')
 
-
+###############################################################################
+	#fit a model for the whole BEC frequency
+###############################################################################
 boxplot(Freq ~ TYPE, data = monthly.freq, las = 2, names = c('BEC', 'BER', 'HOM', 'MIS', 'OAP', 'OT', 'TFV', 'TOB', 'TOV', 'VPF', 'VPI'))
-
 
 BEC.monthly.freq <- monthly.freq[monthly.freq$TYPE == 'Break and Enter Commercial', ]
 
@@ -22,7 +23,9 @@ hist(BEC.monthly.freq$Freq, freq = F, breaks = 100, ylim = c(0, 0.03))
 x <- seq(0, 1000, 1)
 points(x, dpois(x, lambda), type = 'l')
 
-
+###############################################################################
+	#describe BEC temporally
+###############################################################################
 BEC.monthly.freq <- cbind(BEC.monthly.freq, paste(BEC.monthly.freq$YEAR, substr(as.character(as.numeric(BEC.monthly.freq$MONTH) + 100), 2, 3), sep = '-'))
 
 plot(BEC.monthly.freq[, 5], BEC.monthly.freq[, 4])

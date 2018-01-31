@@ -2,19 +2,24 @@
 	# load the raw data, 
 	# count crimes by month and crime type, 
 	# and build our data set
+	# you don't need to run this part
 #################################################
-# Load the data
-data <- read.csv(file = '/home/yuhuiyao/Documents/
-	Github/R-handout/Estimation/crime.csv') 
-
-# count them by month and crime type
-monthly.freq <- as.data.frame(
-	with(data, table(TYPE, YEAR, MONTH)))
-
-# our analysis will be based on this data set
-BEC.monthly.freq <- monthly.freq[monthly.freq$TYPE == 
-	'Break and Enter Commercial', ]
-
+## set the path storaging our data
+#addr <- '/home/yuhuiyao/Documents/Github/R-handout/MCandApp/crime.csv'
+## Load the data
+#data <- read.csv(file = addr) 
+#
+## count them by month and crime type
+#monthly.freq <- as.data.frame(
+#	with(data, table(TYPE, YEAR, MONTH)))
+#
+## our analysis will be based on this data set
+#BEC.monthly.freq <- monthly.freq[monthly.freq$TYPE == 
+#	'Break and Enter Commercial', ]
+#
+## save our new data
+#addr <- '/home/yuhuiyao/Documents/Github/R-handout/MCandApp/BEC.Rdata'
+#save(BEC.monthly.freq, file = addr)
 #################################################
 	# describe BEC during the period
 #################################################

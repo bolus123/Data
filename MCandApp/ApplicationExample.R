@@ -18,11 +18,16 @@
 #	'Break and Enter Commercial', ]
 #
 ## save our new data
-#addr <- '/home/yuhuiyao/Documents/Github/R-handout/MCandApp/BEC.Rdata'
-#save(BEC.monthly.freq, file = addr)
+#addr <- '/home/yuhuiyao/Documents/Github/R-handout/MCandApp/BEC.csv'
+#write.csv(BEC.monthly.freq, file = addr)
 #################################################
 	# describe BEC during the period
 #################################################
+# load the new data
+addr <- paste('https://raw.githubusercontent.com/bolus123', 
+	'/R-handout/master/MCandApp/BEC.csv', sep = '')
+BEC.monthly.freq <- read.csv(file = addr)[, -1]
+
 # add a new column combining YEAR with MONTH
 BEC.monthly.freq <- cbind(BEC.monthly.freq, 
 	paste(BEC.monthly.freq$YEAR, 

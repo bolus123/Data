@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.19)  31 JAN 2018 17:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.9.19)  31 JAN 2018 17:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -366,66 +366,63 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
-</home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout
-/plot1.png, id=27, 870.25125pt x 724.7075pt>
-File: /home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Ha
-ndout/plot1.png Graphic file (type png)
+</home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png, id=27, 8
+70.25125pt x 724.7075pt>
+File: /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png Grap
+hic file (type png)
 
-<use /home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Han
-dout/plot1.png>
-Package pdftex.def Info: /home/yuhuiyao/Documents/Github/R-handout/IntegrationA
-ndTransformation/Handout/plot1.png used on input line 131.
+<use /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png>
+Package pdftex.def Info: /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Han
+dout/plot1.png used on input line 131.
 (pdftex.def)             Requested size: 435.12456pt x 362.35286pt.
- [5 </home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Han
-dout/plot1.png>]
-</home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout
-/plot2.png, id=31, 870.25125pt x 724.7075pt>
-File: /home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Ha
-ndout/plot2.png Graphic file (type png)
 
-<use /home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Han
-dout/plot2.png>
-Package pdftex.def Info: /home/yuhuiyao/Documents/Github/R-handout/IntegrationA
-ndTransformation/Handout/plot2.png used on input line 152.
+[5 </home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png>]
+</home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png, id=31, 8
+70.25125pt x 724.7075pt>
+File: /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png Grap
+hic file (type png)
+
+<use /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png>
+Package pdftex.def Info: /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Han
+dout/plot2.png used on input line 152.
 (pdftex.def)             Requested size: 348.09433pt x 289.87787pt.
- [6 </home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Han
-dout/plot2.png>]
-</home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout
-/plot3.png, id=35, 867.24pt x 780.9175pt>
-File: /home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Ha
-ndout/plot3.png Graphic file (type png)
 
-<use /home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Han
-dout/plot3.png>
-Package pdftex.def Info: /home/yuhuiyao/Documents/Github/R-handout/IntegrationA
-ndTransformation/Handout/plot3.png used on input line 188.
+[6 </home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png>]
+</home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png, id=35, 8
+67.24pt x 780.9175pt>
+File: /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png Grap
+hic file (type png)
+
+<use /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png>
+Package pdftex.def Info: /home/yuhuiyao/Documents/Github/R-handout/MCandApp/Han
+dout/plot3.png used on input line 188.
 (pdftex.def)             Requested size: 346.88986pt x 312.36147pt.
- [7] [8 </home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation
-/Handout/plot3.png>] [9] [10] [11] [12]) [13] (./main.aux) ) 
+
+[7] [8 </home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png>]
+[9] [10] [11] [12]) [13] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  3769 strings out of 493029
- 48523 string characters out of 6136234
+ 48263 string characters out of 6136234
  112668 words of memory out of 5000000
  7197 multiletter control sequences out of 15000+600000
  18474 words of font info for 59 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  38i,17n,26p,572b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive
-/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri
-8a.pfb>
-Output written on main.pdf (13 pages, 254429 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc
+/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cour
+ier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (13 pages, 253835 bytes).
 PDF statistics:
  107 PDF objects out of 1000 (max. 8388607)
  74 compressed objects within 1 object stream

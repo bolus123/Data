@@ -128,7 +128,7 @@
 	\par This data comes from the Vancouver Open Data Catalogue. It has 530,652 records regarding to different types of crimes between Jan 01, 2003 and July 13, 2017. The original data set contains coordinates in UTM Zone 10 with Latitude and Longitude. 
 	\item Suppose our target is to predict the monthly frequency of the type of crimes "Break and Enter Commercial" in the future and we are not very interested in the exact locations of crimes. The frequency during the period between Jan 01, 2003 and July 13, 2017 can be showed as the following plot:
 	\begin{center}
-		\includegraphics[scale=0.5]{/home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout/plot1.png}
+		\includegraphics[scale=0.5]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png}
 	\end{center}
 	where on July 2, 2003, Vancouver won the bid to host the Winter Olympic (the vertical red dashed line). The game was hosted from February 12 to 28, 2010 (the vertical blue dashed line). So I called the period between July 2, 2003 and February, 28, 2010 as the preparation of Winter Olympic. Also, on June 15, 2011, there was a riot, 2011 Vancouver Stanley Cup riot (the vertical green dashed line). It is obvious for us to observe that the frequency has a convex shape and one of possible reasons causing this phenomenon is the Winter Olympic. 
 	\par Intuitively, I will guess the frequency of crimes are increasing until reaching the situation before the preparation of Winter Olympic. Hence, I will use the fraction of the data before July 2003, as my training data, to predict the frequency after 2017.
@@ -149,7 +149,7 @@
 	\end{equation*}
 	They can be showed on the plot
 	\begin{center}
-		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout/plot2.png}
+		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png}
 	\end{center}
 	where the upper horizontal dashed line is the 97.5\% quantile, 319 and the lower horizontal dashed line is the 2.5\% quantile, 253.
 	\item Because $X$ is a sample, $\hat{\lambda} = \bar{X}$ shall have its own distribution. Suppose $\hat{\lambda} \sim gamma(\alpha= 1125.168, \beta = 0.2536)$. Find out the 2.5\% and 97.5\% quantile.
@@ -185,31 +185,19 @@
 	\end{equation*}
 	where $P(X \le q_{0.025}) = 0.025$ and $P(X \le  q_{0.975}) = 0.975$. The quantiles $q_{0.025}$ and $q_{0.975}$ are roots of the equation. 
 	\begin{center}
-		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout/plot3.png}
+		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png}
 	\end{center}
 	where the upper horizontal solid line is the 97.5\% quantile, 323 and the lower horizontal solid line is the 2.5\% quantile, 249.
 	\item R code for the whole process
 	\begin{verbatim}
 		#################################################
-		# load the raw data, 
-		# count crimes by month and crime type, 
-		# and build a new data set
-		#################################################
-		# Load the data
-		data <- read.csv(file = '/home/yuhuiyao/Documents/
-		Github/R-handout/Estimation/crime.csv') 
-		
-		# count them by month and crime type
-		monthly.freq <- as.data.frame(
-		with(data, table(TYPE, YEAR, MONTH)))
-		
-		# my analysis will be based on this data set
-		BEC.monthly.freq <- monthly.freq[monthly.freq$TYPE == 
-		'Break and Enter Commercial', ]
-		
-		#################################################
 		# describe BEC during the period
 		#################################################
+		# load the new data
+		addr <- paste('https://raw.githubusercontent.com/bolus123', 
+		'/R-handout/master/MCandApp/BEC.csv', sep = '')
+		BEC.monthly.freq <- read.csv(file = addr)[, -1]
+		
 		# add a new column combining YEAR with MONTH
 		BEC.monthly.freq <- cbind(BEC.monthly.freq, 
 		paste(BEC.monthly.freq$YEAR, 
@@ -343,7 +331,8 @@
 		}
 		
 		# calcualte the 2.5% quantile
-		q0025 <- X.quantile(p = 0.025, alpha = alpha, beta = beta)
+		q0025 <- X.quantile(p = 0.025, 
+		alpha = alpha, beta = beta)
 		# calcualte the 97.5% quantile
 		q0975 <- X.quantile(p = 0.975, alpha = alpha, beta = beta)
 		

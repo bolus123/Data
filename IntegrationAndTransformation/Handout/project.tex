@@ -5,7 +5,8 @@
 		\begin{equation*}
 			CARL = (1 - \Phi(\frac{\Phi^{-1}(u)}{\sqrt{k}} + \frac{c}{c_4}\sqrt{\frac{F^{-1}_{\chi^2_{k-1}(v)}}{k-1}}) + \Phi(\frac{\Phi^{-1}(u)}{\sqrt{k}} - \frac{c}{c_4}\sqrt{\frac{F^{-1}_{\chi^2_{k-1}(v)}}{k-1}}))^{-1}, 0<u<1, 0<v<1
 		\end{equation*}
-		where $k$, $c$ and $c_4$ are constants. $\Phi$ is the c.d.f. of the standard normal distribution. $\Phi^{-1}$ is the quantile function the standard normal distribution. $F^{-1}_{\chi^2_{k-1}}$ is the quantile function of $\chi^2$ with $k-1$ degrees of freedom. The analytical solution probably is desperate, but we can use other methods to obtain the numerical solution. This handout will show a way to solve integrations numerically.
+		where $k$, $c$ and $c_4$ are constants. $\Phi$ is the c.d.f. of the standard normal distribution. $\Phi^{-1}$ is the quantile function the standard normal distribution. $F^{-1}_{\chi^2_{k-1}}$ is the quantile function of $\chi^2$ with $k-1$ degrees of freedom. 
+		\par The analytical solution probably is desperate, but we can use other methods to obtain the numerical solution. This handout will show a way to solve integrations numerically.
 	
 	\item Example. $Y = |X|$ where $X \sim N(0, 1)$. Find out $E(Y)$
 		\begin{enumerate}
@@ -108,7 +109,7 @@
 					Results & 0.7979 & 0.7979 & 0.7944 & 0.7729
 				\end{tabular}
 			\end{center}
-			where Method 3* and Method 4* have 1000 simulations.
+			* Method 3 and Method 4 have 1000 simulations.
 			\item Steps of Monte Carlo Method
 			\begin{enumerate}
 				\item Check the domain
@@ -124,15 +125,15 @@
 \section{Application}
 \begin{enumerate}
 	\item Data description\cite{civ17}
-	\par The data comes from the Vancouver Open Data Catalogue. It was extracted on 2017-07-18 and it contains 530,652 records from 2003-01-01 to 2017-07-13. The original data set contains coordinates in UTM Zone 10 with Latitude and Longitude.
+	\par This data comes from the Vancouver Open Data Catalogue. It has 530,652 records regarding to different types of crimes between Jan 01, 2003 and July 13, 2017. The original data set contains coordinates in UTM Zone 10 with Latitude and Longitude. 
 	\item Suppose our target is to predict the monthly frequency of the type of crimes "Break and Enter Commercial" in the future and we are not very interested in the exact locations of crimes. The frequency during the period between Jan 01, 2003 and July 13, 2017 can be showed as the following plot:
 	\begin{center}
 		\includegraphics[scale=0.5]{/home/yuhuiyao/Documents/Github/R-handout/IntegrationAndTransformation/Handout/plot1.png}
 	\end{center}
 	where on July 2, 2003, Vancouver won the bid to host the Winter Olympic (the vertical red dashed line). The game was hosted from February 12 to 28, 2010 (the vertical blue dashed line). So I called the period between July 2, 2003 and February, 28, 2010 as the preparation of Winter Olympic. Also, on June 15, 2011, there was a riot, 2011 Vancouver Stanley Cup riot (the vertical green dashed line). It is obvious for us to observe that the frequency has a convex shape and one of possible reasons causing this phenomenon is the Winter Olympic. 
-	\par Intuitively, I will need to predict the frequency of crimes after 2017 which probably has similar situation before the preparation of Winter Olympic, so I will pick this fraction of the data as our training data.
+	\par Intuitively, I will guess the frequency of crimes are increasing until reaching the situation before the preparation of Winter Olympic. Hence, I will use the fraction of the data before July 2003, as my training data, to predict the frequency after 2017.
 	\item
-	\par Suppose $X = \{303, 254, 292, 266, 291, 306\}$ is from our training data and this data follows a Poisson distribution with parameter $\lambda$. Find out the 2.5\% and 97.5\% quantile. The p.d.f. of $X$
+	\par Suppose $X = \{303, 254, 292, 266, 291, 306\}$ is from my training data and this data follows a Poisson distribution with parameter $\lambda$. Find out the 2.5\% and 97.5\% quantile. The p.d.f. of $X$
 	\begin{equation*}
 		f_X(x) = \frac{\lambda^{x}e^{-\lambda}}{x!} , x = 0, 1, 2, ...
 	\end{equation*}
@@ -192,7 +193,7 @@
 		#################################################
 		# load the raw data, 
 		# count crimes by month and crime type, 
-		# and build our data set
+		# and build a new data set
 		#################################################
 		# Load the data
 		data <- read.csv(file = '/home/yuhuiyao/Documents/
@@ -202,7 +203,7 @@
 		monthly.freq <- as.data.frame(
 		with(data, table(TYPE, YEAR, MONTH)))
 		
-		# our analysis will be based on this data set
+		# my analysis will be based on this data set
 		BEC.monthly.freq <- monthly.freq[monthly.freq$TYPE == 
 		'Break and Enter Commercial', ]
 		

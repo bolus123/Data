@@ -127,4 +127,4 @@ points(x, dnorm(x, 5, 1), type = 'l', col = 'blue')
 # and sigma2 = 2 in a black curve
 points(x, dctnorm(x, 0.5, c(0, 5), c(1, 1)), type = 'l'
 , col = 'black')
-15
+

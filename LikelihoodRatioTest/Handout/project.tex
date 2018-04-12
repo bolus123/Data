@@ -1,5 +1,5 @@
-This handout will take the Iris data as an example to show the computation and application of Likelihood ratio test in practice. Suppose we are interested in the following hypothesis testing for the mean of sepal width of Virginica (from the Iris data set) $H_0:\mu = \mu_0 = 3$ vs. $H_1: \mu = \mu_1 \ne 3$ under the assumption that the observations $X_i$'s are i.i.d. the normal distribution with $N(\mu, \sigma^2 = 0.1040)$. Also, let the significance level be $\alpha = 0.05$.
-\section{The concept of the likelihood ratio test}
+This handout will show various ways to conduct the Likelihood ratio test in practice. Suppose we are interested in the following hypothesis testing for the mean of sepal width of Virginica (from the Iris data set \textit{Link:
+https://archive.ics.uci.edu/ml/datasets/iris} (Fisher, 1936 \cite{Iris})) $H_0:\mu = \mu_0 = 3$ vs. $H_1: \mu = \mu_1 \ne 3$ under the assumption that the observations $X_i$'s are i.i.d. the normal distribution with $N(\mu, \sigma^2 = 0.1040)$. Also, let the significance level be $\alpha = 0.05$.
 \begin{enumerate}
 	\item Exact Method
 		\par The likelihood 
@@ -30,17 +30,48 @@ This handout will take the Iris data as an example to show the computation and a
 		\end{equation*}
 		Because $\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$, $\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}} \sim N(0, 1) \Rightarrow (\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}})^2 \sim \chi^2_1$, according to the equal-tail assumption, the size
 		\begin{equation*}
-			P( -2\delta \le C_1\cup -2\delta \ge -C_2 | H_0 ) = P(  -2\delta \le C_1 \cup-2\delta \ge C_2 | \mu = \mu_0 ) = \alpha  
+			P( -2\delta \le C_1\cup -2\delta \ge C_2 | H_0 ) = P(  -2\delta \le C_1 \cup-2\delta \ge C_2 | \mu = \mu_0 ) = \alpha  
 		\end{equation*}	
 		Under the null hypothesis, let $\Delta = -2\delta \sim \chi^2_1$. The critical region	 
 		\begin{equation*}
 			\Rightarrow \{   \Delta \le 0.0010\cup \Delta \ge 5.0239\}
 		\end{equation*}
-		Wilks (1938) \cite{Wilks} also proved that, in general, $\Delta$ is asymptotically following the chi-squared distribution with the degrees of freedom equal to the difference between the degrees of freedom under the alternative hypothesis and the degrees of freedom under the null hypothesis. This result is called \textbf{Wilks' Theorem}.
-	\item Parametric Bootstrap
-		\par Suppose the analytical form of $\Delta$ is too complicated, we have no clue w
-	\item Non-parametric Bootstrap
+		Wilks (1938) \cite{Wilks} proved that, if the sample size is large enough and $H_0$ is true, for a nested model, $\Delta$ is asymptotically following the chi-squared distribution with the degrees of freedom equal to the difference between the degrees of freedom under the alternative hypothesis and the degrees of freedom under the null hypothesis. This result is called \textbf{Wilks' Theorem}.
+	\item Bootstrap Method
+		\par Suppose the analytical form of $\Delta$ is too complicated and we do not have enough sample size to reach the asymptote but we can calculate the likelihoods. We can do our test by simulating the distribution of the log-likelihood ratio.
+		\begin{enumerate}
+			\item Parametric Bootstrap
+				\par We will \textbf{simulate the data in a specific distribution under the null hypothesis} and then do the test repeatedly. 
+				\par Steps for our problem:
+				\begin{enumerate}
+					\item \textbf{Simulate a sample from the normal distribution under the null hypothesis}
+					\item Calculate the likelihood under the null hypothesis
+					\item Calculate the likelihood under the alternative hypothesis (Notice that the m.l.e. need to be re-estimated)
+					\item Calculate and save $\Delta_s$ for the empirical distribution of $\Delta$
+					\item repeat (1) - (4) until the process reaches the maximum of simulations
+					\item Compare the $\Delta$ from the original data to the distribution of $\Delta$
+				\end{enumerate}
+			\item Nonparametric Bootstrap
+				\par We will \textbf{resample the data from the original data set} and then do the test repeatedly.
+				\par Steps for our problem:
+				\begin{enumerate}
+					\item \textbf{Resample a sample from the original data}
+					\item Calculate the likelihood under the null hypothesis
+					\item Calculate the likelihood under the alternative hypothesis (Notice that the m.l.e. need to be re-estimated)
+					\item Calculate and save $\Delta_s$ for the empirical distribution of $\Delta$
+					\item repeat (1) - (4) until the process reaches the maximum of simulations
+					\item Compare the $\Delta$ from the original data to the distribution of $\Delta$
+				\end{enumerate}
+		\end{enumerate}
 	\item Comparison
+		\par The following is the table for the p-values from different methods
+		\begin{center}
+			\begin{tabular}{c | c | c | c}
+				Methods & Exact Method & Parametric Bootstrap & Nonparametric Bootstrap \\
+				\hline
+				p-value & 0.8628 & 0.8518 & 0.7312 \\
+			\end{tabular}
+		\end{center}
+		The p-values of the exact method is highest, the second place is the one of the Parametric Bootstrap method and the lowest one is from the Nonparametric Bootstrap method.
+	\item Practice (Goodness-of-fit): suppose we are interested in the following hypothesis testing for deciding whether the sample of sepal width of Virginica is from the specific normal distribution with mean $\mu=3$ and variance $\sigma^2 = 0.1$. Follow the three methods of conducting the likelihood ratio test above, what is your setting for your test and what is your conclusion? (\textbf{Hint}: the degrees of freedom for this test is 2. Also, you may need to estimate the m.l.e. of sample variance).
 \end{enumerate}
-
-\section{Application: Naive Bayes classifier}

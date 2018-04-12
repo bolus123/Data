@@ -44,15 +44,19 @@
 			\begin{equation*}
 			E(X) = \int_{D}xf(x)dx \approx \bar{X} = \frac{1}{n} \sum_{i = 1}^{n}x_i
 			\end{equation*}
-			Besides, because of Central Limit Theorem, $\bar{X}$ asymptotically follows $N(\mu, \frac{\sigma^2}{n})$ where $\mu = E(X)$ is the mean of $X$ and $\sigma^2$ is the variance of $X$. So, when $n \rightarrow \infty$, $\bar{X} \rightarrow E(X)$. Hence, intuitively, the result is more precise with a larger sample size.
+			Besides, because of Central Limit Theorem, $\bar{X}$ asymptotically follows $N(\mu, \frac{\sigma^2}{n})$ where $\mu = E(X)$ is the mean of $X$ and $\sigma^2$ is the variance of $X$. So, when $n \rightarrow \infty$, $\bar{X} \xrightarrow{p} E(X)$. Hence, intuitively, the result is more precise with a larger sample size.
 			\begin{enumerate}
 				\item Method 3: Monte Carlo Method with Transformation 1
-				\par Because 
-				\begin{equation*}
-				E(Y) = E(|X|) = \int_{-\infty}^{\infty}|x| \phi(x)dx \approx \frac{1}{n}\sum_{i = 1}^{n} |x_i|
-				\end{equation*}
-				where $n$ is the number of simulation and $X_s = \{ x_1, ..., x_n\}$ is a sample from $N(0, 1)$.
 				\begin{itemize}
+					\item Motivation
+					\par Our target distribution may be hard to be found, but the original distribution may be not. Hence, we simulate a sample from the original distribution and transform it to our target, and then, calculate the expectation.
+					\item 
+					\par The analytical part
+					\par Because 
+					\begin{equation*}
+					E(Y) = E(|X|) = \int_{-\infty}^{\infty}|x| \phi(x)dx \approx \frac{1}{n}\sum_{i = 1}^{n} |x_i|
+					\end{equation*}
+					where $n$ is the number of simulation and $X_s = \{ x_1, ..., x_n\}$ is a sample from $N(0, 1)$.
 					\item R code
 					\begin{verbatim}
 					# set seed to make this process repeatable
@@ -71,12 +75,17 @@
 					\end{verbatim}
 				\end{itemize}
 				\item Method 4: Monte Carlo Method with Transformation 2
+				\begin{itemize}
+					\item Motivation
+					\par Both of our target distribution and the original distribution may be hard to be found, so we use other relatively simple distributions which have same domains as the ones of our target distribution or the original distribution, to simulate our target, and then, calculate the expectation.
+					\item 
+				\par The analytical part
 				\par Because $exp(1)$ has a same domain as $Y$, 
 				\begin{equation*}
 				E(Y) = \int_{0}^{\infty}yf_Y(y)dy = \int_{0}^{\infty}\frac{yf_y(y)}{e^{-y}}e^{-y}dy = E(\frac{yf_Y(y)}{e^{-y}}) \approx \frac{1}{n}\sum_{i=1}^{n}\frac{y_if_Y(y_i)}{e^{-y_i}}
 				\end{equation*}
 				where $n$ is the number of simulation and $Y_s = \{y_1, ..., y_n\}$ is a sample from $exp(1)$.
-				\begin{itemize}
+				
 					\item R code
 					\begin{verbatim}
 					# set seed to make this process repeatable
@@ -128,9 +137,9 @@
 	\par This data comes from the Vancouver Open Data Catalogue. It has 530,652 records regarding to different types of crimes between Jan 01, 2003 and July 13, 2017. The original data set contains coordinates in UTM Zone 10 with Latitude and Longitude. 
 	\item Suppose our target is to predict the monthly frequency of the type of crimes "Break and Enter Commercial" in the future and we are not very interested in the exact locations of crimes. The frequency during the period between Jan 01, 2003 and July 13, 2017 can be showed as the following plot:
 	\begin{center}
-		\includegraphics[scale=0.5]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png}
+		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png}
 	\end{center}
-	where on July 2, 2003, Vancouver won the bid to host the Winter Olympic (the vertical red dashed line). The game was hosted from February 12 to 28, 2010 (the vertical blue dashed line). So I called the period between July 2, 2003 and February, 28, 2010 as the preparation of Winter Olympic. Also, on June 15, 2011, there was a riot, 2011 Vancouver Stanley Cup riot (the vertical green dashed line). It is obvious for us to observe that the frequency has a convex shape and one of possible reasons causing this phenomenon is the Winter Olympic. 
+	where on July 2, 2003, Vancouver won the bid to host the Winter Olympic (the vertical red dashed line). The game was hosted from February 12 to 28, 2010 (the vertical blue dashed line). So I called the period between July 2, 2003 and February, 28, 2010 as the preparation of Winter Olympic. Also, on June 15, 2011, there was a riot, 2011 Vancouver Stanley Cup riot (the vertical green dashed line). It is obvious for us to observe that the frequency has a convex shape and one of possible reasons causing this phenomenon is the Winter Olympic. Besides, the fraction of data after 2017 may be not trustful, because the trend of this fraction is supposed to be increasing or maintain the same level.
 	\par Intuitively, I will guess the frequency of crimes are increasing until reaching the situation before the preparation of Winter Olympic. Hence, I will use the fraction of the data before July 2003, as my training data, to predict the frequency after 2017.
 	\item
 	\par Suppose $X = \{303, 254, 292, 266, 291, 306\}$ is from my training data and this data follows a Poisson distribution with parameter $\lambda$. Find out the 2.5\% and 97.5\% quantile. The p.d.f. of $X$
@@ -152,7 +161,7 @@
 		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png}
 	\end{center}
 	where the upper horizontal dashed line is the 97.5\% quantile, 319 and the lower horizontal dashed line is the 2.5\% quantile, 253.
-	\item Because $X$ is a sample, $\hat{\lambda} = \bar{X}$ shall have its own distribution. Suppose $\hat{\lambda} \sim gamma(\alpha= 1125.168, \beta = 0.2536)$. Find out the 2.5\% and 97.5\% quantile.
+	\item Because $X$ is a sample, $\hat{\lambda} = \bar{X}$ shall have its own distribution. Suppose $\hat{\lambda} \sim gamma(\alpha= 1349.507, \beta = 0.2115)$. Find out the 2.5\% and 97.5\% quantile.
 	\par The p.d.f. of $X$ given $\hat{\lambda}$
 	\begin{equation*}
 			f_{X|\hat{\lambda}}(x) = \frac{\lambda^{x}e^{-\lambda}}{x!}
@@ -179,15 +188,15 @@
 	\begin{equation*}
 		P(X \le x) = \int_{0}^{\infty}(\sum_{t = 1}^{x}\frac{\lambda^{t}e^{-\lambda}}{t!})(\frac{1}{\Gamma(\alpha)\beta^{\alpha}}\lambda^{\alpha - 1}e^{-\frac{\lambda}{\beta}}) d \lambda = E(\sum_{t = 1}^{x}\frac{\lambda^{t}e^{-\lambda}}{t!})) \approxeq \frac{1}{n} \sum_{i = 1}^{n} \sum_{t = 1}^{x}\frac{\lambda_i^{t}e^{-\lambda_i}}{t!}
 	\end{equation*}
-	where $\lambda_s = \{\lambda_1,...,\lambda_n \}$ is a sample following $gamma(\alpha= 1125.168, \beta = 0.2536)$. Also, the equation can be expressed as the following (the root searching form)
+	where $\lambda_s = \{\lambda_1,...,\lambda_n \}$ is a sample following $gamma(\alpha= 1349.507, \beta = 0.2115)$. Also, the equation can be expressed as the following (the root searching form)
 	\begin{equation*}
 		P(X \le x) - \frac{1}{n} \sum_{i = 1}^{n} \sum_{t = 1}^{x}\frac{\lambda_i^{t}e^{-\lambda_i}}{t!} = 0
 	\end{equation*}
-	where $P(X \le q_{0.025}) = 0.025$ and $P(X \le  q_{0.975}) = 0.975$. The quantiles $q_{0.025}$ and $q_{0.975}$ are roots of the equation. 
+	where $P(X \le q_{0.025}) = 0.025$ and $P(X \le  q_{0.975}) = 0.975$. The quantiles $q_{0.025}$ and $q_{0.975}$ are roots of the equation. After the computation, we can show the quantiles on the plot:
 	\begin{center}
 		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png}
 	\end{center}
-	where the upper horizontal solid line is the 97.5\% quantile, 323 and the lower horizontal solid line is the 2.5\% quantile, 249.
+	where the upper horizontal solid line is the 97.5\% quantile, 323, and the lower horizontal solid line is the 2.5\% quantile, 250.
 	\item R code for the whole process
 	\begin{verbatim}
 		#################################################
@@ -274,13 +283,10 @@
 		xs.means <- rep(NA, n)
 		
 		for (i in 1:n){
-		
 		# resample from the training data
-		xs <- sample(x1, 5, replace = T)
-		
+		xs <- sample(x1, 6, replace = T)
 		# calculate their means
 		xs.means[i] <- mean(xs)
-		
 		}
 		
 		# calculate the grand mean
@@ -288,7 +294,7 @@
 		# calculate the grand variance
 		sigma2 <- var(xs.means)
 		
-		# fit a gamma model by the method of moment
+		# fit a gamma distribution by the method of moment
 		alpha <- mu^2 / sigma2
 		beta <- sigma2 / mu
 		
@@ -297,8 +303,8 @@
 		#plot(x, dgamma(x, alpha, 1/beta), type = 'l')
 		
 		#################################################
-		# fit a new poisson model 
-		# with parameter lambda 
+		# fit a new poisson distribution 
+		# with a parameter lambda 
 		# which is a random variable
 		#################################################
 		# set a seed make this process repeatable
@@ -314,10 +320,8 @@
 		interval = c(100, 500), rnum = 10000){
 		
 		root.finding <- function(x, p, lambda){
-		
 		# The root searching form
 		p - mean(ppois(x, lambda))
-		
 		}
 		
 		# simulate a sample from gamma distribution
@@ -326,7 +330,6 @@
 		# search the root by the bisection method
 		uniroot(root.finding, interval = interval, 
 		p = p, lambda = lambda)$root
-		
 		
 		}
 		

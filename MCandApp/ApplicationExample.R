@@ -106,7 +106,7 @@ xs.means <- rep(NA, n)
 for (i in 1:n){
 
 	# resample from the training data
-	xs <- sample(x1, 5, replace = T)
+	xs <- sample(x1, 6, replace = T)
 
 	# calculate their means
 	xs.means[i] <- mean(xs)
@@ -118,7 +118,7 @@ mu <- mean(xs.means)
 # calculate the grand variance
 sigma2 <- var(xs.means)
 
-# fit a gamma model by the method of moment
+# fit a gamma distribution by the method of moment
 alpha <- mu^2 / sigma2
 beta <- sigma2 / mu
 
@@ -127,7 +127,7 @@ beta <- sigma2 / mu
 #plot(x, dgamma(x, alpha, 1/beta), type = 'l')
 
 #################################################
-	# fit a new poisson model 
+	# fit a new poisson distribution 
 	# with parameter lambda 
 	# which is a random variable
 #################################################

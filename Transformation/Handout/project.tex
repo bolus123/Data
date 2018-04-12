@@ -1,0 +1,37 @@
+\section{Methodology}
+\begin{enumerate}
+	\item Box-Cox transformation and regression
+		\begin{enumerate}
+			\item Motivation
+			\par In practice, most of our data do not follow any normal distribution. The first attempt we can use is to transform this data into a normal distribution and then follow the traditional methods based on the normal distribution.
+			\item Issue
+			\par  This transformation change the physical unit. We need to transform it back to the original unit. 
+			\item We still learn the "break-into-commercial" sample from the data, \textit{Crime in Vancouver}.
+			Suppose the original sample is $X$ and the transformed sample is $Y$. The transformation used here is the squared-root transformation. We have this assumption
+			\begin{equation*}
+			Y_i = \sqrt{X_i}
+			\end{equation*}
+			where we assume $Y_i$ follows a normal distribution with mean $\mu_i$ and variance $\sigma^2$. Also, let $\mu_i = at_i^2 + b t_i + c$. The matrix form of the normal distribution
+			\begin{equation*}
+			f_{\underline{Y}}(\underline{y}) = (2\pi)^{-n/2}(|\underline{\Sigma}|)^{-1/2}e^{-\frac{1}{2} (\underline{y} - \underline{\mu})^{T} \underline{\Sigma}^{-1} (\underline{y} - \underline{\mu}) }
+			\end{equation*}
+			The log-likelihood function
+			\begin{equation*}
+			lnL(\underline{\mu}, \underline{\Sigma}, \theta; \underline{y}) = -\frac{n}{2}ln(2\pi) - \frac{1}{2}ln( |\underline{\Sigma}| ) -\frac{1}{2} (\underline{y} - \underline{\mu})^{T} \underline{\Sigma}^{-1} (\underline{y} - \underline{\mu})
+			\end{equation*}
+			where the vector $\underline{y} = \{ y_1, y_2, ..., y_n \}^T$, $y_i = \sqrt{x_i}$, the mean vector $\underline{\mu} = \{ \mu_1, \mu_2, ..., \mu_ n \}^T$ and the n by n covariance matrix $\underline{\Sigma}$ with diagonal elements $\sigma^2$ and off-diagonal elements $0$. And this is the target we need to maximize. After estimating the parameters, we need to transform it back to our original unit.
+			\begin{equation*}
+				\begin{split}
+					Y_i \sim N(\mu_i, \sigma^2) \Rightarrow \sqrt{X_i} \sim N(\mu_i, \sigma^2)
+				\end{split}
+			\end{equation*}
+			\begin{equation*}
+				\Rightarrow \frac{\sqrt{X_i}}{\sigma} \sim N(\mu_i, 1) \Rightarrow \frac{X_i}{\sigma^2} \sim \chi^2_{1, \mu_i} \underrightarrow{D} N(1 + \mu_i, 2(1 + \mu_i))
+			\end{equation*}
+			where $\chi^2_{1, \mu_i}$ is the noncentral chisquare distribution with 1 degree of freedom and noncentral parameter $\mu_i$.
+			\begin{equation*}
+				The log-likehood
+			\end{equation*}
+		\end{enumerate}
+	\item Another model based on Poisson.
+\end{enumerate}

@@ -1,0 +1,46 @@
+This handout will take the Iris data as an example to show the computation and application of Likelihood ratio test in practice. Suppose we are interested in the following hypothesis testing for the mean of sepal width of Virginica (from the Iris data set) $H_0:\mu = \mu_0 = 3$ vs. $H_1: \mu = \mu_1 \ne 3$ under the assumption that the observations $X_i$'s are i.i.d. the normal distribution with $N(\mu, \sigma^2 = 0.1040)$. Also, let the significance level be $\alpha = 0.05$.
+\section{The concept of the likelihood ratio test}
+\begin{enumerate}
+	\item Exact Method
+		\par The likelihood 
+		\begin{equation*}
+			L(\mu;\underline{x}) = \prod_{i=1}^{n}(2\pi\sigma^2)^{-1/2}e^{-(x_i-\mu)^2/(2\sigma^2)}
+		\end{equation*}
+		The log-likelihood
+		\begin{equation}
+			lnL(\mu;\underline{x}) = -\frac{n}{2}ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+		\end{equation}
+		It is easy to show the m.l.e. be $\hat{\mu} = \bar{x}$. The log-likelihood ratio
+		\begin{equation*}
+			\begin{split}
+				\delta &= ln( \frac{L(\mu_0;\underline{x})}{L(\hat{\mu};\underline{x})} ) = lnL(\mu_0;\underline{x}) - lnL(\hat{\mu};\underline{x}) \\
+				& = -\frac{n}{2}ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu_0)^2 + (\frac{n}{2}ln(2\pi\sigma^2) + \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\hat{\mu})^2) \\
+			\end{split}
+		\end{equation*}
+		\begin{equation*}
+			\begin{split}
+				\sum_{i=1}^{n}(x_i-\mu_0)^2 & = \sum_{i=1}^{n}(x_i - \bar{x} + \bar{x} -\mu_0)^2 \\
+				& = \sum_{i=1}^{n} [(x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - \mu_0) + (\bar{x} - \mu_0)^2] \\
+				& = \sum_{i=1}^{n} [(x_i - \bar{x})^2] + n(\bar{x} - \mu_0)^2
+			\end{split}
+		\end{equation*}
+		So
+		\begin{equation*}
+			\delta = -\frac{n}{2\sigma^2}(\bar{x} - \mu_0)^2
+		\end{equation*}
+		Because $\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$, $\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}} \sim N(0, 1) \Rightarrow (\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}})^2 \sim \chi^2_1$, according to the equal-tail assumption, the size
+		\begin{equation*}
+			P( -2\delta \le C_1\cup -2\delta \ge -C_2 | H_0 ) = P(  -2\delta \le C_1 \cup-2\delta \ge C_2 | \mu = \mu_0 ) = \alpha  
+		\end{equation*}	
+		Under the null hypothesis, let $\Delta = -2\delta \sim \chi^2_1$. The critical region	 
+		\begin{equation*}
+			\Rightarrow \{   \Delta \le 0.0010\cup \Delta \ge 5.0239\}
+		\end{equation*}
+		Wilks (1938) \cite{Wilks} also proved that, in general, $\Delta$ is asymptotically following the chi-squared distribution with the degrees of freedom equal to the difference between the degrees of freedom under the alternative hypothesis and the degrees of freedom under the null hypothesis. This result is called \textbf{Wilks' Theorem}.
+	\item Parametric Bootstrap
+		\par Suppose the analytical form of $\Delta$ is too complicated, we have no clue w
+	\item Non-parametric Bootstrap
+	\item Comparison
+\end{enumerate}
+
+\section{Application: Naive Bayes classifier}

@@ -1,0 +1,203 @@
+% !TeX program = pdfLaTeX
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx,psfrag,epsf}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{url} % not crucial - just used below for the URL
+
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
+\begin{document}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if0\blind
+{
+  \title{\bf R handout: Monte Carlo Method and Application}
+
+  \author{
+      }
+  \maketitle
+} \fi
+
+\if1\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf R handout: Monte Carlo Method and Application}
+  \end{center}
+  \medskip
+} \fi
+
+\bigskip
+\begin{abstract}
+
+\end{abstract}
+
+\noindent%
+{\it Keywords:} 
+\vfill
+
+\newpage
+\spacingset{1.45} % DON'T change the spacing!
+
+This handout will show various ways to conduct the Likelihood ratio test
+in practice. Suppose we are interested in the following hypothesis
+testing for the mean of sepal width of Virginica (from
+\href{https://archive.ics.uci.edu/ml/datasets/iris}{the Iris data set}
+(\citet{fisher1936use})) \(H_0:\mu = \mu_0 = 3\) vs.
+\(H_1: \mu = \mu_1 \ne 3\) under the assumption that the observations
+\(X_i\)'s are i.i.d. the normal distribution with
+\(N(\mu, \sigma^2 = 0.1040)\). Also, let the significance level be
+\(\alpha = 0.05\).
+
+\hypertarget{exact-method}{%
+\subsection{1. Exact Method}\label{exact-method}}
+
+The likelihood \begin{equation*}
+            L(\mu;\underline{x}) = \prod_{i=1}^{n}(2\pi\sigma^2)^{-1/2}e^{-(x_i-\mu)^2/(2\sigma^2)}
+        \end{equation*} The log-likelihood \begin{equation}
+            lnL(\mu;\underline{x}) = -\frac{n}{2}ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
+        \end{equation} It is easy to show the m.l.e. be
+\(\hat{\mu} = \bar{x}\). The log-likelihood ratio \begin{equation*}
+            \begin{split}
+                \Lambda &= ln( \frac{L(\mu_0;\underline{x})}{L(\hat{\mu};\underline{x})} ) = lnL(\mu_0;\underline{x}) - lnL(\hat{\mu};\underline{x}) \\
+                & = -\frac{n}{2}ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu_0)^2 + (\frac{n}{2}ln(2\pi\sigma^2) + \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\hat{\mu})^2) \\
+            \end{split}
+        \end{equation*} \begin{equation*}
+            \begin{split}
+                \sum_{i=1}^{n}(x_i-\mu_0)^2 & = \sum_{i=1}^{n}(x_i - \bar{x} + \bar{x} -\mu_0)^2 \\
+                & = \sum_{i=1}^{n} [(x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - \mu_0) + (\bar{x} - \mu_0)^2] \\
+                & = \sum_{i=1}^{n} [(x_i - \bar{x})^2] + n(\bar{x} - \mu_0)^2
+            \end{split}
+        \end{equation*} So \begin{equation*}
+            \Lambda = -\frac{n}{2\sigma^2}(\bar{x} - \mu_0)^2
+        \end{equation*} Because
+\(\bar{X} \sim N(\mu, \frac{\sigma^2}{n})\),
+\(\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}} \sim N(0, 1) \Rightarrow (\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}})^2 \sim \chi^2_1\),
+according to the equal-tail assumption, the size \begin{equation*}
+            P( -2\Lambda \le C_1\cup -2\Lambda \ge C_2 | H_0 ) = P(  -2\Lambda \le C_1 \cup-2\Lambda \ge C_2 | \mu = \mu_0 ) = \alpha  
+        \end{equation*} Under the null hypothesis
+\(-2\Lambda \sim \chi^2_1\). The critical region\\
+\begin{equation*}
+            \Rightarrow \{   -2\Lambda \le 0.0010\cup -2\Lambda \ge 5.0239\}
+        \end{equation*}
+
+\citet{wilks1938large} proved that, if the sample size is large enough
+and \(H_0\) is true, for a nested model, \(-2\Lambda\) is asymptotically
+following the chi-squared distribution with the degrees of freedom
+approximately equal to the difference between the degrees of freedom
+under the alternative hypothesis and the degrees of freedom under the
+null hypothesis. This result is called \textbf{Wilks' Theorem}.
+
+\hypertarget{bootstrap-method}{%
+\subsection{2. Bootstrap Method}\label{bootstrap-method}}
+
+Suppose the analytical form of \(-2\Lambda\) is too complicated and we
+do not have enough sample size to reach the asymptote but we can
+calculate the likelihoods. We can do our test by simulating the
+distribution of the log-likelihood ratio.
+
+\hypertarget{a-parametric-bootstrap}{%
+\subsubsection{(a) Parametric Bootstrap}\label{a-parametric-bootstrap}}
+
+We will \textbf{simulate the data in a specific distribution under the
+null hypothesis} and then do the test repeatedly.
+
+Steps for our problem:
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  \textbf{Simulate a sample from the normal distribution under the null
+  hypothesis}
+\item
+  Calculate the likelihood under the null hypothesis
+\item
+  Calculate the likelihood under the alternative hypothesis (Notice that
+  the m.l.e. need to be re-estimated)
+\item
+  Calculate and save \(-2\Lambda_s\) for the empirical distribution of
+  \(-2\Lambda\)
+\item
+  repeat (1) - (4) until the process reaches the maximum of simulations
+\item
+  Compare the \(-2\Lambda\) from the original data to the distribution
+  of \(-2\Lambda\)
+\end{enumerate}
+
+\hypertarget{b-nonparametric-bootstrap}{%
+\subsubsection{(b) Nonparametric
+Bootstrap}\label{b-nonparametric-bootstrap}}
+
+We will \textbf{resample the data from the original data set} and then
+do the test repeatedly.
+
+Steps for our problem:
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\item
+  \textbf{Resample a sample from the original data}
+\item
+  Calculate the likelihood under the null hypothesis
+\item
+  Calculate the likelihood under the alternative hypothesis (Notice that
+  the m.l.e. need to be re-estimated)
+\item
+  Calculate and save \(-2\Lambda_s\) for the empirical distribution of
+  \(-2\Lambda\)
+\item
+  repeat (1) - (4) until the process reaches the maximum of simulations
+\item
+  Compare the \(-2\Lambda\) from the original data to the distribution
+  of \(-2\Lambda\)
+\end{enumerate}
+
+\hypertarget{comparison}{%
+\subsection{3. Comparison}\label{comparison}}
+
+The following is the table for the p-values from different methods
+
+\begin{verbatim}
+##         ExactMethod ParametricBootstrap NonparametricBootstrap
+## p-value      0.8628              0.8518                 0.7312
+\end{verbatim}
+
+The p-values of the exact method is highest, the second place is the one
+of the Parametric Bootstrap method and the lowest one is from the
+Nonparametric Bootstrap method.
+
+\hypertarget{practice-goodness-of-fit}{%
+\subsection{4. Practice
+(Goodness-of-fit)}\label{practice-goodness-of-fit}}
+
+Suppose we are interested in the following hypothesis testing for
+deciding whether the sample of sepal width of Virginica is from the
+specific normal distribution with mean \(\mu=3\) and variance
+\(\sigma^2 = 0.1\). Follow the three methods of conducting the
+likelihood ratio test above, what is your setting for your test and what
+is your conclusion? (\textbf{Hint}: the degrees of freedom for this test
+is 2. Also, you may need to estimate the m.l.e. of sample variance).
+
+\bibliographystyle{agsm}
+\bibliography{C:/Dropbox/Bibliography/master.bib}
+
+\end{document}

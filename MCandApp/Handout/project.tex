@@ -1,9 +1,9 @@
 \section{Methodology}
 \begin{enumerate}
 	\item Motivation
-	\par In practice, we may meet some hard integrations which is really hard to solve. For example, in one of my working papers, we have this integrand
+	\par In practice, we may meet some hard integrations which is really hard to solve. For example, in one of my working papers, we have this integrand with the domain $0<u<1, 0<v<1$
 		\begin{equation*}
-			CARL = (1 - \Phi(\frac{\Phi^{-1}(u)}{\sqrt{k}} + \frac{c}{c_4}\sqrt{\frac{F^{-1}_{\chi^2_{k-1}(v)}}{k-1}}) + \Phi(\frac{\Phi^{-1}(u)}{\sqrt{k}} - \frac{c}{c_4}\sqrt{\frac{F^{-1}_{\chi^2_{k-1}(v)}}{k-1}}))^{-1}, 0<u<1, 0<v<1
+			CARL = (1 - \Phi(\frac{\Phi^{-1}(u)}{\sqrt{k}} + \frac{c}{c_4}\sqrt{\frac{F^{-1}_{\chi^2_{k-1}(v)}}{k-1}}) + \Phi(\frac{\Phi^{-1}(u)}{\sqrt{k}} - \frac{c}{c_4}\sqrt{\frac{F^{-1}_{\chi^2_{k-1}(v)}}{k-1}}))^{-1}
 		\end{equation*}
 		where $k$, $c$ and $c_4$ are constants. $\Phi$ is the c.d.f. of the standard normal distribution. $\Phi^{-1}$ is the quantile function the standard normal distribution. $F^{-1}_{\chi^2_{k-1}}$ is the quantile function of $\chi^2$ with $k-1$ degrees of freedom. 
 		\par The analytical solution probably is desperate, but we can use other methods to obtain the numerical solution. This handout will show a way to solve integrations numerically.
@@ -44,7 +44,7 @@
 			\begin{equation*}
 			E(X) = \int_{D}xf(x)dx \approx \bar{X} = \frac{1}{n} \sum_{i = 1}^{n}x_i
 			\end{equation*}
-			Besides, because of Central Limit Theorem, $\bar{X}$ asymptotically follows $N(\mu, \frac{\sigma^2}{n})$ where $\mu = E(X)$ is the mean of $X$ and $\sigma^2$ is the variance of $X$. So, when $n \rightarrow \infty$, $\bar{X} \xrightarrow{p} E(X)$. Hence, intuitively, the result is more precise with a larger sample size.
+			Besides, because of Central Limit Theorem, $\bar{X}$ asymptotically follows $N(\mu, \frac{\sigma^2}{n})$ where $\mu = E(X)$ is the mean of $X$ and $\sigma^2$ is the variance of $X$. So, when $n \rightarrow \infty$, $\bar{X}$ converges to $E(X)$ in probability. Hence, intuitively, the result is more precise with a larger sample size.
 			\begin{enumerate}
 				\item Method 3: Monte Carlo Method with Transformation 1
 				\begin{itemize}
@@ -82,7 +82,11 @@
 				\par The analytical part
 				\par Because $exp(1)$ has a same domain as $Y$, 
 				\begin{equation*}
-				E(Y) = \int_{0}^{\infty}yf_Y(y)dy = \int_{0}^{\infty}\frac{yf_y(y)}{e^{-y}}e^{-y}dy = E(\frac{yf_Y(y)}{e^{-y}}) \approx \frac{1}{n}\sum_{i=1}^{n}\frac{y_if_Y(y_i)}{e^{-y_i}}
+				\begin{split}
+					E(Y) &= \int_{0}^{\infty}yf_Y(y)dy = \int_{0}^{\infty}\frac{yf_y(y)}{e^{-y}}e^{-y}dy \\
+					&
+					= E(\frac{yf_Y(y)}{e^{-y}}) \approx \frac{1}{n}\sum_{i=1}^{n}\frac{y_if_Y(y_i)}{e^{-y_i}}
+				\end{split}
 				\end{equation*}
 				where $n$ is the number of simulation and $Y_s = \{y_1, ..., y_n\}$ is a sample from $exp(1)$.
 				
@@ -137,7 +141,7 @@
 	\par This data comes from the Vancouver Open Data Catalogue. It has 530,652 records regarding to different types of crimes between Jan 01, 2003 and July 13, 2017. The original data set contains coordinates in UTM Zone 10 with Latitude and Longitude. 
 	\item Suppose our target is to predict the monthly frequency of the type of crimes "Break and Enter Commercial" in the future and we are not very interested in the exact locations of crimes. The frequency during the period between Jan 01, 2003 and July 13, 2017 can be showed as the following plot:
 	\begin{center}
-		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot1.png}
+		\includegraphics[scale=0.4]{C:/Github/R-handout/MCandApp/Handout/plot1.png}
 	\end{center}
 	where on July 2, 2003, Vancouver won the bid to host the Winter Olympic (the vertical red dashed line). The game was hosted from February 12 to 28, 2010 (the vertical blue dashed line). So I called the period between July 2, 2003 and February, 28, 2010 as the preparation of Winter Olympic. Also, on June 15, 2011, there was a riot, 2011 Vancouver Stanley Cup riot (the vertical green dashed line). It is obvious for us to observe that the frequency has a convex shape and one of possible reasons causing this phenomenon is the Winter Olympic. Besides, the fraction of data after 2017 may be not trustful, because the trend of this fraction is supposed to be increasing or maintain the same level.
 	\par Intuitively, I will guess the frequency of crimes are increasing until reaching the situation before the preparation of Winter Olympic. Hence, I will use the fraction of the data before July 2003, as my training data, to predict the frequency after 2017.
@@ -158,7 +162,7 @@
 	\end{equation*}
 	They can be showed on the plot
 	\begin{center}
-		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot2.png}
+		\includegraphics[scale=0.4]{C:/Github/R-handout/MCandApp/Handout/plot2.png}
 	\end{center}
 	where the upper horizontal dashed line is the 97.5\% quantile, 319 and the lower horizontal dashed line is the 2.5\% quantile, 253.
 	\item Because $X$ is a sample, $\hat{\lambda} = \bar{X}$ shall have its own distribution. Suppose $\hat{\lambda} \sim gamma(\alpha= 1349.507, \beta = 0.2115)$. Find out the 2.5\% and 97.5\% quantile.
@@ -194,7 +198,7 @@
 	\end{equation*}
 	where $P(X \le q_{0.025}) = 0.025$ and $P(X \le  q_{0.975}) = 0.975$. The quantiles $q_{0.025}$ and $q_{0.975}$ are roots of the equation. After the computation, we can show the quantiles on the plot:
 	\begin{center}
-		\includegraphics[scale=0.4]{/home/yuhuiyao/Documents/Github/R-handout/MCandApp/Handout/plot3.png}
+		\includegraphics[scale=0.4]{C:/Github/R-handout/MCandApp/Handout/plot3.png}
 	\end{center}
 	where the upper horizontal solid line is the 97.5\% quantile, 323, and the lower horizontal solid line is the 2.5\% quantile, 250.
 	\item R code for the whole process

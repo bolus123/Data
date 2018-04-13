@@ -1,5 +1,17 @@
-data <- read.csv(file = 'C:/Users/bolus/OneDrive - The University of Alabama/Document/Github/R-handout/LikelihoodRatioTest/iris.csv')
+################################################################################################
+	# Loading data
+################################################################################################
+# set a seed
+set.seed(12345)
 
+# specify the address of the data
+data.addr <- 'https://raw.githubusercontent.com/
+	bolus123/R-handout/master/LikelihoodRatioTest/iris.csv'
+
+# load the data
+data <- read.csv(file = data.addr)
+
+# name the columns
 names(data) <- c( 
 		'sl' #sepal lengt
    		,'sw' #sepal width
@@ -8,86 +20,149 @@ names(data) <- c(
    		,'class' #class
 )
 
-
+# get the fraction of Virginica
 data.virginica <- data[data$class == 'Iris-virginica', ]
 
-#par(mfrow = c(2, 2))
+# describe the Virginica data
+mean(data.virginica$sw)
+var(data.virginica$sw)
 
-#hist(data.virginica$sl)
-hist(data.virginica$sw, freq = FALSE)
-curve(dnorm(x, mean(data.virginica$sw), sd(data.virginica$sw)), add = TRUE)
-#hist(data.virginica$pl)
-#hist(data.virginica$pw)
-
-################################################################################################
+# build a histogram
+hist(data.virginica$sw, freq = FALSE, main = 'Histogram of the Sepal Width of Virginica', xlab = 'Sepal Width')
+curve(dnorm(x, mean(data.virginica$sw), sd(data.virginica$sw)), add = TRUE) # add a fitted line
 
 ################################################################################################
+	# Exact Method
+################################################################################################
 
+# sample size of Virginica
+n <- dim(data.virginica)[1]
+
+# sigma2 is known
 sigma2 <- 0.1040
 sigma <- sqrt(sigma2)
 
-mu.0 <- 3
-mu.1 <- mean(data.virginica$sw)
+# under the null hypothesis
+mu.0 <- 3 
 
-n <- dim(data.virginica)[1]
+# under the alternative hypothesis
+mu.1 <- mean(data.virginica$sw) 
 
-delta <- - n / 2 / sigma2 * (mu.1 - mu.0)^2
+# calculate the statistic
+Lambda <- - n / 2 / sigma2 * (mu.1 - mu.0)^2
+Lambda <- -2 * Lambda
+Lambda
 
-Delta <- -2 * delta
+# critical values for alpha = 0.05 under the equal-tailed assumption
+c1 <- qchisq(0.025, 1) # critical value for the lower tail
+c1
+c2 <- qchisq(0.975, 1) # critical value for the upper tail
+c2
 
-Delta
-
-p <- pchisq(Delta, 1)
+# calculate p-value
+p <- pchisq(Lambda, 1)
 p.value <- ifelse(p > 0.5, 1 - (1 - p) * 2, p * 2 )
-
 p.value
 
 ################################################################################################
-
+	# Parametric Bootstrap
 ################################################################################################
 
+# maximum number of simulations
 sim <- 10000
 
+# sample size of Virginica
+n <- dim(data.virginica)[1]
+
+# get the empirical distribution based on the parametric bootstrap
 ref.par <- rep(NA, sim)
 
 for (i in 1:sim){
 
+	# simulate data under the null hypothesis
 	X <- rnorm(n, mu.0, sigma)
 
+	# calculate Lambda
 	lnL.0 <- sum(log(dnorm(X, mu.0, sigma)))
 	lnL.1 <- sum(log(dnorm(X, mean(X), sigma)))
-
 	ref.par[i] <- -2 * (lnL.0 - lnL.1)
 
 }
 
-p <- mean(ref.par < Delta)
+# describe the empirical distribution of Lambda based on the parametric bootstrap
+hist(ref.par, freq = FALSE, main = 'Histogram of the empirical of Lambda\n based on the parametric bootstrap', xlab = 'Lambda')
+abline(v = Lambda, lty = 2, col = 'red') # point out the Lambda from the original data
 
+# critical values for alpha = 0.05 under the equal-tailed assumption
+c1 <- quantile(ref.par, 0.025) # critical value for the lower tail
+c1
+c2 <- quantile(ref.par, 0.975) # critical value for the upper tail
+c2
+
+# calculate p-value
+p <- mean(ref.par < Lambda)
 p.value.par <- ifelse(p > 0.5, 1 - (1 - p) * 2, p * 2 ) 
-
 p.value.par
 
 ################################################################################################
-
+	# Nonparametric Bootstrap
 ################################################################################################
 
+# maximum number of simulations
 sim <- 10000
 
+# sample size of Virginica
+n <- dim(data.virginica)[1]
+
+# get the empirical distribution based on the nonparametric bootstrap
 ref.nonpar <- rep(NA, sim)
 
 for (i in 1:sim){
 
+	# resample from the original data set
 	X <- sample(data.virginica$sw, size = n, replace = TRUE)
 
+	# calculate Lambda
 	lnL.0 <- sum(log(dnorm(X, mu.0, sigma)))
 	lnL.1 <- sum(log(dnorm(X, mean(X), sigma)))
-
 	ref.nonpar[i] <- -2 * (lnL.0 - lnL.1)
 
 }
 
-p <- mean(ref.nonpar < Delta)
+# describe the empirical distribution of Lambda based on the nonparametric bootstrap
+hist(ref.nonpar, freq = FALSE, main = 'Histogram of the empirical of Lambda\n based on the nonparametric bootstrap', xlab = 'Lambda')
+abline(v = Lambda, lty = 2, col = 'red') # point out the Lambda from the original data
 
+# critical values for alpha = 0.05 under the equal-tailed assumption
+c1 <- quantile(ref.nonpar, 0.025) # critical value for the lower tail
+c1
+c2 <- quantile(ref.nonpar, 0.975) # critical value for the upper tail
+c2
+
+# calculate p-value
+p <- mean(ref.nonpar < Lambda)
 p.value.nonpar <-  ifelse(p > 0.5, 1 - (1 - p) * 2, p * 2 ) 
-
 p.value.nonpar
+
+
+################################################################################################
+
+
+data.versicolor <- data[data$class == 'Iris-versicolor', ]
+
+par(mfrow = c(2, 2))
+
+hist(data.versicolor$sl)
+hist(data.versicolor$sw)
+hist(data.versicolor$pl)
+hist(data.versicolor$pw)
+
+
+data.setosa <- data[data$class == 'Iris-setosa', ]
+
+par(mfrow = c(2, 2))
+
+hist(data.setosa$sl)
+hist(data.setosa$sw)
+hist(data.setosa$pl)
+hist(data.setosa$pw)

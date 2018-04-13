@@ -135,7 +135,7 @@ i. **Simulate a sample from the given distribution under the null hypothesis**
 ii. Calculate the likelihood under the null hypothesis
 iii. Calculate the likelihood under the alternative hypothesis (Notice that the m.l.e. need to be re-estimated)
 iv. Calculate and save the value of $-2\Lambda$ denoted $-2\Lambda_s$ for simulation for the empirical distribution of $-2\Lambda_s$
-v. repeat (1) - (4) until the process reaches the maximum of simulations
+v. repeat (i) - (iv) until the process reaches the maximum of simulations
 vi. Compare the $-2\Lambda$ calculated from the original data with the empirical distribution of $-2\Lambda_s$
 
 * R code

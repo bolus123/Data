@@ -164,8 +164,8 @@ for (i in 1:sim){
 }
 
 # describe the empirical distribution of Lambda based on the parametric bootstrap
-hist(ref.par, freq = FALSE, main = 'Histogram of the empirical distribution 
-     of -2Lambda based on the parametric bootstrap', xlab = 'Lambda')
+hist(ref.par, freq = FALSE, main = 'Histogram of the empirical distribution of -2Lambda
+     based on the parametric bootstrap', xlab = 'Lambda')
 # point out the Lambda from the original data
 abline(v = Lambda, lty = 2, col = 'red') 
 text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 
@@ -214,43 +214,7 @@ for (i in 1:sim){
 
 # describe the empirical distribution of Lambda based on the nonparametric bootstrap
 hist(ref.nonpar, freq = FALSE, main = 'Histogram of the empirical distribution 
-     of -2Lambda based on the nonparametric bootstrap', xlab = 'Lambda')
-# point out the Lambda from the original data
-abline(v = Lambda, lty = 2, col = 'red') 
-text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 
-
-# critical values for alpha = 0.05 under the equal-tailed assumption
-C <- quantile(ref.nonpar, 0.95)
-C
-
-# calculate p-value
-p <- mean(ref.nonpar < Lambda)
-p.value.nonpar <-  1 - p
-p.value.nonpar
-# maximum number of simulations
-sim <- 10000
-
-# sample size of Virginica
-n <- dim(data.virginica)[1]
-
-# get the empirical distribution based on the nonparametric bootstrap
-ref.nonpar <- rep(NA, sim)
-
-for (i in 1:sim){
-
-	# resample from the original data set
-	X <- sample(data.virginica$sw, size = n, replace = TRUE)
-	
-	# calculate Lambda
-	lnL.0 <- sum(log(dnorm(X, mu.0, sigma)))
-	lnL.1 <- sum(log(dnorm(X, mean(X), sigma)))
-	ref.nonpar[i] <- -2 * (lnL.0 - lnL.1)
-
-}
-
-# describe the empirical distribution of Lambda based on the nonparametric bootstrap
-hist(ref.nonpar, freq = FALSE, main = 'Histogram of the empirical distribution 
-     of -2Lambda based on the nonparametric bootstrap', xlab = 'Lambda')
+     of -2Lambda based on the nonparametric bootstrap', xlab = '-2Lambda')
 # point out the Lambda from the original data
 abline(v = Lambda, lty = 2, col = 'red') 
 text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 

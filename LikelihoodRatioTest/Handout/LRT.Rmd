@@ -1,5 +1,5 @@
 ---
-title: 'R handout: Monte Carlo Method and Application'
+title: 'R handout: Likelihood Ratio Test'
 author:
 - Yuhui Yao^[The University of Alabama]
 fontfamily: mathpazo

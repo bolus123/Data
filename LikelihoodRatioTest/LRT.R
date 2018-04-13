@@ -1,6 +1,7 @@
 ################################################################################################
 	# Loading data
 ################################################################################################
+
 # set a seed
 set.seed(12345)
 
@@ -28,8 +29,11 @@ mean(data.virginica$sw)
 var(data.virginica$sw)
 
 # build a histogram
-hist(data.virginica$sw, freq = FALSE, main = 'Histogram of the Sepal Width of Virginica', xlab = 'Sepal Width')
-curve(dnorm(x, mean(data.virginica$sw), sd(data.virginica$sw)), add = TRUE) # add a fitted line
+hist(data.virginica$sw, freq = FALSE, xlab = 'Sepal Width', 
+  main = 'Histogram of the Sepal Width of Virginica')
+# add a normal distribution
+curve(dnorm(x, mean(data.virginica$sw), sd(data.virginica$sw)), add = TRUE)
+# It looks good!
 
 ################################################################################################
 	# Exact Method
@@ -54,14 +58,12 @@ Lambda <- -2 * Lambda
 Lambda
 
 # critical values for alpha = 0.05 under the equal-tailed assumption
-c1 <- qchisq(0.025, 1) # critical value for the lower tail
-c1
-c2 <- qchisq(0.975, 1) # critical value for the upper tail
-c2
+C <- qchisq(0.95, 1)
+C
 
 # calculate p-value
 p <- pchisq(Lambda, 1)
-p.value <- ifelse(p > 0.5, 1 - (1 - p) * 2, p * 2 )
+p.value <- 1 - p
 p.value
 
 ################################################################################################
@@ -81,7 +83,8 @@ for (i in 1:sim){
 
 	# simulate data under the null hypothesis
 	X <- rnorm(n, mu.0, sigma)
-
+  # mu.0 = 3 and sigma2 = 0.1040
+	
 	# calculate Lambda
 	lnL.0 <- sum(log(dnorm(X, mu.0, sigma)))
 	lnL.1 <- sum(log(dnorm(X, mean(X), sigma)))
@@ -90,18 +93,19 @@ for (i in 1:sim){
 }
 
 # describe the empirical distribution of Lambda based on the parametric bootstrap
-hist(ref.par, freq = FALSE, main = 'Histogram of the empirical of Lambda\n based on the parametric bootstrap', xlab = 'Lambda')
-abline(v = Lambda, lty = 2, col = 'red') # point out the Lambda from the original data
+hist(ref.par, freq = FALSE, main = 'Histogram of the empirical distribution 
+     of -2Lambda based on the parametric bootstrap', xlab = 'Lambda')
+# point out the Lambda from the original data
+abline(v = Lambda, lty = 2, col = 'red') 
+text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 
 
 # critical values for alpha = 0.05 under the equal-tailed assumption
-c1 <- quantile(ref.par, 0.025) # critical value for the lower tail
-c1
-c2 <- quantile(ref.par, 0.975) # critical value for the upper tail
-c2
+C <- quantile(ref.par, 0.95)
+C
 
 # calculate p-value
 p <- mean(ref.par < Lambda)
-p.value.par <- ifelse(p > 0.5, 1 - (1 - p) * 2, p * 2 ) 
+p.value.par <- 1 - p
 p.value.par
 
 ################################################################################################
@@ -121,7 +125,7 @@ for (i in 1:sim){
 
 	# resample from the original data set
 	X <- sample(data.virginica$sw, size = n, replace = TRUE)
-
+	
 	# calculate Lambda
 	lnL.0 <- sum(log(dnorm(X, mu.0, sigma)))
 	lnL.1 <- sum(log(dnorm(X, mean(X), sigma)))
@@ -130,18 +134,19 @@ for (i in 1:sim){
 }
 
 # describe the empirical distribution of Lambda based on the nonparametric bootstrap
-hist(ref.nonpar, freq = FALSE, main = 'Histogram of the empirical of Lambda\n based on the nonparametric bootstrap', xlab = 'Lambda')
-abline(v = Lambda, lty = 2, col = 'red') # point out the Lambda from the original data
+hist(ref.nonpar, freq = FALSE, main = 'Histogram of the empirical distribution 
+     of -2Lambda based on the nonparametric bootstrap', xlab = 'Lambda')
+# point out the Lambda from the original data
+abline(v = Lambda, lty = 2, col = 'red') 
+text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 
 
 # critical values for alpha = 0.05 under the equal-tailed assumption
-c1 <- quantile(ref.nonpar, 0.025) # critical value for the lower tail
-c1
-c2 <- quantile(ref.nonpar, 0.975) # critical value for the upper tail
-c2
+C <- quantile(ref.nonpar, 0.95)
+C
 
 # calculate p-value
 p <- mean(ref.nonpar < Lambda)
-p.value.nonpar <-  ifelse(p > 0.5, 1 - (1 - p) * 2, p * 2 ) 
+p.value.nonpar <-  1 - p
 p.value.nonpar
 
 

@@ -4,10 +4,10 @@ author:
 - Yuhui Yao^[Yuhui Yao is a PhD student in the department of ISM in The University of Alabama and his email is yyao17@crimson.ua.edu]
 fontfamily: mathpazo
 output:
-  pdf_document: 
+  word_document: default
   html_document:
     df_print: paged
-  word_document: default
+  pdf_document: 
 geometry: margin=1in
 fontsize: 11pt
 outputs: null
@@ -15,8 +15,12 @@ spacing: double
 bibliography: C:/Dropbox/Bibliography/master.bib
 ---
 
-This handout will show various ways to conduct the Likelihood ratio test in practice. Suppose we are interested in the following hypothesis testing for the mean of the variable, sepal width, of Virginica (from [the Iris data set](https://archive.ics.uci.edu/ml/datasets/iris)
- (@fisher1936use)) $H_0:\mu = \mu_0 = 3$ vs. $H_1: \mu = \mu_1 \ne 3$ under the assumption that the observations $X_i$'s are following i.i.d. the normal distribution with mean $\mu$ and known variance $\sigma^2 = 0.1040$. Also, let the significance level be $\alpha = 0.05$. First of all, we load the data and describe the variable, sepal width, of Virginica.
+This handout will show various ways to conduct the Likelihood ratio test in practice using R. Suppose we are interested in the following hypothesis testing problem for the mean of the variable, **sepal width** of Virginica (from [the Iris data set](https://archive.ics.uci.edu/ml/datasets/iris)
+ (@fisher1936use)): 
+  $$H_0:\mu = \mu_0 = 3 \mbox{ vs. } H_1: \mu = \mu_1 \ne 3$$ 
+under the assumption that the observations $X_i$'s are i.i.d. following a normal distribution with unknown mean $\mu$ and known variance $\sigma^2 = 0.1040$. Also, let the significance level be $\alpha = 0.05$. 
+
+First of all, we load the data and describe the variable, sepal width, of Virginica.
 
 * R code
 
@@ -33,7 +37,7 @@ data <- read.csv(file = data.addr)
 
 # name the columns
 names(data) <- c( 
-		'sl' #sepal lengt
+		'sl' #sepal length
    		,'sw' #sepal width
    		,'pl' #petal length
    		,'pw' #petal width
@@ -50,42 +54,43 @@ var(data.virginica$sw)
 # build a histogram
 hist(data.virginica$sw, freq = FALSE, xlab = 'Sepal Width', 
   main = 'Histogram of the Sepal Width of Virginica')
-# add a normal distribution
+# add a normal distribution to see the fit
 curve(dnorm(x, mean(data.virginica$sw), sd(data.virginica$sw)), add = TRUE)
-# It looks good!
+# It looks good! We  can do more confirmatory analysis 
+# of the fit but we don't do that here
 ```
 
-## 1. Exact Method for the Normal distribution with mean $\mu$ and known variance $\sigma^2$
+## 1. Exact Method for the Normal distribution with unknown mean $\mu$ and known variance $\sigma^2$
 The likelihood 
-		\begin{equation*}
+		$$
 			L(\mu;\underline{x}) = \prod_{i=1}^{n}(2\pi\sigma^2)^{-1/2}e^{-(x_i-\mu)^2/(2\sigma^2)}
-		\end{equation*}
+		$$
 		The log-likelihood
-		\begin{equation}
+		$$
 			lnL(\mu;\underline{x}) = -\frac{n}{2}ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2
-		\end{equation}
+		$$
 		It is easy to show the m.l.e. be $\hat{\mu} = \bar{x}$. The log-likelihood ratio
-		\begin{equation*}
+		$$
 			\begin{split}
 				\Lambda &= ln( \frac{L(\mu_0;\underline{x})}{L(\hat{\mu};\underline{x})} ) = lnL(\mu_0;\underline{x}) - lnL(\hat{\mu};\underline{x}) \\
 				& = -\frac{n}{2}ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu_0)^2 + (\frac{n}{2}ln(2\pi\sigma^2) + \frac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\hat{\mu})^2) \\
 			\end{split}
-		\end{equation*}
-		\begin{equation*}
+		$$
+		$$
 			\begin{split}
 				\sum_{i=1}^{n}(x_i-\mu_0)^2 & = \sum_{i=1}^{n}(x_i - \bar{x} + \bar{x} -\mu_0)^2 \\
 				& = \sum_{i=1}^{n} [(x_i - \bar{x})^2 + 2(x_i - \bar{x})(\bar{x} - \mu_0) + (\bar{x} - \mu_0)^2] \\
 				& = \sum_{i=1}^{n} [(x_i - \bar{x})^2] + n(\bar{x} - \mu_0)^2
 			\end{split}
-		\end{equation*}
+		$$
 		So
-		\begin{equation*}
+		$$
 			\Lambda = -\frac{n}{2\sigma^2}(\bar{x} - \mu_0)^2
-		\end{equation*}
+		$$
 		Because $\bar{X} \sim N(\mu, \frac{\sigma^2}{n})$, $\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}} \sim N(0, 1) \Rightarrow (\frac{\bar{X} - \mu}{\sqrt{\sigma^2/n}})^2 \sim \chi^2_1$, according to the equal-tail assumption, the size
-		\begin{equation*}
+		$$
 			P( -2\Lambda \ge C | H_0 ) = P(  -2\Lambda \ge C | \mu = \mu_0 ) = \alpha  
-		\end{equation*}	
+		$$
 where under the null hypothesis $-2\Lambda \sim \chi^2_1$. 
 
 Under the assumption of normality, $-2\Lambda$ is exactly following the chi-squared distribution with some degrees of freedom, but, in practice, the normality assumption is not always true. Fortunately, @wilks1938large proved that, if the sample size is large enough and $H_0$ is true, for a nested model, $-2\Lambda$ is asymptotically following the chi-squared distribution with the degrees of freedom approximately equal to the difference between the degrees of freedom under the alternative hypothesis and the degrees of freedom under the null hypothesis. This result is called **Wilks' Theorem**.
@@ -244,11 +249,10 @@ a <- data.frame(
 print(a)
 ```
 
-
 The p-values from the exact method are similar with the the one from the parametric bootstrap method which is less than the one from the nonparametric bootstrap method. All of them show that the null hypothesis $H_0:\mu = \mu_0 = 3$ fails to be rejected. So why did these three methods give us different p-values? Which one would you like to use?
 
 ## 4. Practice (Goodness-of-fit)
 
-Suppose we are interested in the following hypothesis testing for deciding whether the sample of sepal width of Virginica is from the specific normal distribution with mean $\mu=3$ and variance $\sigma^2 = 0.1$. Following the three methods of conducting the likelihood ratio test based on the normality assumption, what is your setting for the test and what is your conclusion? (**Hint**: the degrees of freedom for this test is not equal to 1. Also, you need to estimate the m.l.e. of sample mean and sample variance, simultaneously).
+Suppose we are interested in the following hypothesis testing problem for deciding whether the sample of sepal width of Virginica is from the specific normal distribution with mean $\mu=3$ and variance $\sigma^2 = 0.1$. Following the three methods of conducting the likelihood ratio test based on the normality assumption, what is your setting for the test and what is your conclusion? (**Hint**: the degrees of freedom for this test is not equal to 1. Also, you need to estimate the m.l.e. of sample mean and sample variance, simultaneously).
 
 # Reference

@@ -14,7 +14,7 @@ data <- read.csv(file = data.addr)
 
 # name the columns
 names(data) <- c( 
-		'sl' #sepal lengt
+		'sl' #sepal length
    		,'sw' #sepal width
    		,'pl' #petal length
    		,'pw' #petal width
@@ -31,9 +31,10 @@ var(data.virginica$sw)
 # build a histogram
 hist(data.virginica$sw, freq = FALSE, xlab = 'Sepal Width', 
   main = 'Histogram of the Sepal Width of Virginica')
-# add a normal distribution
+# add a normal distribution to see the fit
 curve(dnorm(x, mean(data.virginica$sw), sd(data.virginica$sw)), add = TRUE)
-# It looks good!
+# It looks good! We  can do more confirmatory analysis 
+# of the fit but we don't do that here
 
 ################################################################################################
 	# Exact Method
@@ -94,7 +95,7 @@ for (i in 1:sim){
 
 # describe the empirical distribution of Lambda based on the parametric bootstrap
 hist(ref.par, freq = FALSE, main = 'Histogram of the empirical distribution 
-     of -2Lambda based on the parametric bootstrap', xlab = 'Lambda')
+	of -2Lambda based on the parametric bootstrap', xlab = '-2Lambda')
 # point out the Lambda from the original data
 abline(v = Lambda, lty = 2, col = 'red') 
 text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 
@@ -135,7 +136,7 @@ for (i in 1:sim){
 
 # describe the empirical distribution of Lambda based on the nonparametric bootstrap
 hist(ref.nonpar, freq = FALSE, main = 'Histogram of the empirical distribution 
-     of -2Lambda based on the nonparametric bootstrap', xlab = 'Lambda')
+     of -2Lambda based on the nonparametric bootstrap', xlab = '-2Lambda')
 # point out the Lambda from the original data
 abline(v = Lambda, lty = 2, col = 'red') 
 text(Lambda, 0.4, as.character(round(Lambda, 4)), srt = 270, pos = 4, cex = 0.7) 
